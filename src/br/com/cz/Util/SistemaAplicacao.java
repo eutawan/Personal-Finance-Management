@@ -157,9 +157,14 @@ public class SistemaAplicacao {
                     }
                 }
             }
-
             else if(op.equals("3")) {
+                boolean excluir = autenticacaoController.excluirConta();
 
+                if (excluir) {
+                    System.out.println("=-=- CONTA EXCLUIDA -=-=");
+                } else {
+                    System.out.println("=-=- FALHA NA EXCLUSAO -=-=");
+                }
             }
             else if (op.equals("0")) {
                 System.out.println("-=-= SAIR =-=-");

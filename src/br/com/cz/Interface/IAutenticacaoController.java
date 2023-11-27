@@ -7,5 +7,5 @@ public interface IAutenticacaoController {
 
     boolean cadastro();
     boolean login();
-    void excluirConta();
+    boolean excluirConta();
 }

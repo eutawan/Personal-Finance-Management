@@ -107,7 +107,29 @@ public class AutenticacaoController implements IAutenticacaoController {
     }
 
     @Override
-    public void excluirConta() {
+    public boolean excluirConta() {
+        try {
+            Scanner ler = new Scanner(System.in);
+            System.out.print("Digite seu nome de Usuario: ");
+            String nomeUsuario = ler.nextLine();
+            System.out.print("Digite sua senha: ");
+            String senha = ler.nextLine();
 
+            Utilizador<? extends Pessoa> utl = dao.buscar(nomeUsuario);
+
+            if (utl == null) {
+                throw new UtilizadorException("Utilizador Inexistente");
+            } else {
+                if (utl.getNomeUsuario().equals(nomeUsuario) && utl.getSenha().equals(senha)) {
+                    dao.remover(utl);
+                    return true;
+                } else {
+                    throw new UtilizadorException("Senha incorreta");
+                }
+            }
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
     }
 }
