@@ -23,7 +23,7 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
             if (utilizador != null) {
                 return this.utilizadores.add(utilizador);
             } else {
-                throw new UtilizadorException();
+                throw new UtilizadorException("Utilizador inexistente");
             }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
@@ -37,7 +37,7 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
             if (utilizador != null) {
                 return this.utilizadores.remove(utilizador);
             } else {
-                throw new UtilizadorException();
+                throw new UtilizadorException("O utilizador pesquisado inexistente");
             }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
@@ -55,7 +55,7 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
                         return true;
                     }
             } else {
-                throw new UtilizadorException();
+                throw new UtilizadorException("Utilizador novo inexistente");
             }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
@@ -65,11 +65,33 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
 
     @Override
     public Utilizador<? extends Pessoa> buscar(UUID idDoUtilizador) {
+        try {
+            if (idDoUtilizador != null) {
+                for (Utilizador<? extends Pessoa> utl: utilizadores) {
+                    if (utl.getIdUtilizador().equals(idDoUtilizador)) {
+                        return utl;
+                    }
+                }
+            } else {
+                throw new UtilizadorException("ID do utilizador não corresponde");
+            }
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
         return null;
     }
 
     @Override
     public List<Utilizador<? extends Pessoa>> listar() {
+        try {
+            if (utilizadores != null) {
+                return utilizadores;
+            } else {
+                throw new UtilizadorException("Nenhum Utilizador Cadastrado");
+            }
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
         return null;
     }
 }
