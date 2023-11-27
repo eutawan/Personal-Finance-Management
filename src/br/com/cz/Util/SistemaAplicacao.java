@@ -1,7 +1,15 @@
 package br.com.cz.Util;
 import java.util.Scanner;
 
+import br.com.cz.Controller.AutenticacaoController;
+
 public class SistemaAplicacao {
+
+    private AutenticacaoController autenticacaoController;
+
+    public SistemaAplicacao() {
+        this.autenticacaoController = new AutenticacaoController();
+    }
 
     public String menuInicial(){
         System.out.print("\t-=-= GERENCIAMENTO FINANÇAS PESSOAIS =-=-\n" +
@@ -66,7 +74,12 @@ public class SistemaAplicacao {
         while (true) {
             String op = menuInicial();
             if (op.equals("1")) {
-
+                boolean cadastro = autenticacaoController.cadastro();
+                if (cadastro) {
+                    System.out.println("=-=- CADASTRO REALIZADO COM SUCESSO -=-=");
+                } else {
+                    System.out.println("=-=- CADASTRO NÃO REALIZADO -=-=");
+                }
             }
             else if(op.equals("2")) {
                 while (true) {

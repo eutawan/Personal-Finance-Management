@@ -64,11 +64,11 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     }
 
     @Override
-    public Utilizador<? extends Pessoa> buscar(UUID idDoUtilizador) {
+    public Utilizador<? extends Pessoa> buscar(String nomeDoUsuario) {
         try {
-            if (idDoUtilizador != null) {
+            if (nomeDoUsuario != null) {
                 for (Utilizador<? extends Pessoa> utl: utilizadores) {
-                    if (utl.getIdUtilizador().equals(idDoUtilizador)) {
+                    if (utl.getIdUtilizador().equals(nomeDoUsuario)) {
                         return utl;
                     }
                 }

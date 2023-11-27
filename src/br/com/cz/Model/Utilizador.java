@@ -7,12 +7,14 @@ public class Utilizador<T extends Pessoa> {
     private String nomeUsuario;
     private String email;
     private String senha;
+    private T pessoa;
 
-    public Utilizador(String nomeUsuario, String email, String senha) {
+    public Utilizador(String nomeUsuario, String email, String senha, T pessoa) {
         this.nomeUsuario = nomeUsuario;
         this.email = email;
         this.senha = senha;
         this.idUtilizador = UUID.randomUUID();
+        this.pessoa = pessoa;
     }
 
     public UUID getIdUtilizador() {
@@ -41,6 +43,14 @@ public class Utilizador<T extends Pessoa> {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public T getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(T pessoa) {
+        this.pessoa = pessoa;
     }
 
     @Override
