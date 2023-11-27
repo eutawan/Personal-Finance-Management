@@ -6,6 +6,6 @@ import java.util.UUID;
 public interface IAutenticacaoController {
 
     boolean cadastro();
-    void login();
+    boolean login();
     void excluirConta();
 }

@@ -7,6 +7,5 @@ public class Main {
         SistemaAplicacao sistema = new SistemaAplicacao();
         sistema.executar();
 
-
     }
 }

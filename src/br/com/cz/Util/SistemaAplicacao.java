@@ -83,74 +83,81 @@ public class SistemaAplicacao {
             }
             else if(op.equals("2")) {
                 while (true) {
-                    op = menuPrincipal();
-                    if (op.equals("1")) {
-                        while (true) {
-                            op = menuConta();
-                            if(op.equals("1")) {
+                    boolean login = autenticacaoController.login();
+
+                    if (login) {
+                        op = menuPrincipal();
+                        if (op.equals("1")) {
+                            while (true) {
+                                op = menuConta();
+                                if(op.equals("1")) {
+
+                                }
+                                else if (op.equals("2")) {
+
+                                }
+                                else if (op.equals("3")) {
+
+                                }
+                                else if(op.equals("4")) {
+
+                                }
+                                else if (op.equals("0")) {
+                                    System.out.println("-=-= VOLTAR =-=-");
+                                    break;
+                                }
 
                             }
-                            else if (op.equals("2")) {
+                        }
+                        else if(op.equals("2")) {
+                            while (true) {
+                                op = menuTransacao();
+                                if(op.equals("1")) {
 
-                            }
-                            else if (op.equals("3")) {
+                                }
+                                else if (op.equals("2")) {
 
-                            }
-                            else if(op.equals("4")) {
+                                }
+                                else if (op.equals("3")) {
 
-                            }
-                            else if (op.equals("0")) {
-                                System.out.println("-=-= VOLTAR =-=-");
-                                break;
+                                }
+                                else if (op.equals("0")) {
+                                    System.out.println("-=-= VOLTAR =-=-");
+                                    break;
+                                }
                             }
 
                         }
-                    }
-                    else if(op.equals("2")) {
-                        while (true) {
-                            op = menuTransacao();
-                            if(op.equals("1")) {
+                        else if (op.equals("3")) {
+                            while (true) {
+                                op = menuInvestimento();
+                                if(op.equals("1")) {
 
-                            }
-                            else if (op.equals("2")) {
+                                }
+                                else if (op.equals("2")) {
 
-                            }
-                            else if (op.equals("3")) {
+                                }
+                                else if (op.equals("3")) {
 
-                            }
-                            else if (op.equals("0")) {
-                                System.out.println("-=-= VOLTAR =-=-");
-                                break;
-                            }
-                        }
+                                }
+                                else if (op.equals("0")) {
+                                    System.out.println("-=-= VOLTAR =-=-");
+                                    break;
+                                }
 
-                    }
-                    else if (op.equals("3")) {
-                        while (true) {
-                            op = menuInvestimento();
-                            if(op.equals("1")) {
-
-                            }
-                            else if (op.equals("2")) {
-
-                            }
-                            else if (op.equals("3")) {
-
-                            }
-                            else if (op.equals("0")) {
-                                System.out.println("-=-= VOLTAR =-=-");
-                                break;
                             }
 
                         }
-
-                    }
-                    else if (op.equals("0")) {
-                        System.out.println("-=-= VOLTAR =-=-");
+                        else if (op.equals("0")) {
+                            System.out.println("-=-= VOLTAR =-=-");
+                            break;
+                        }
+                    } else {
                         break;
                     }
                 }
             }
+
             else if(op.equals("3")) {
 
             }

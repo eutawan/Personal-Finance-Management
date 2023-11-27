@@ -68,7 +68,7 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
         try {
             if (nomeDoUsuario != null) {
                 for (Utilizador<? extends Pessoa> utl: utilizadores) {
-                    if (utl.getIdUtilizador().equals(nomeDoUsuario)) {
+                    if (utl.getNomeUsuario().equals(nomeDoUsuario)) {
                         return utl;
                     }
                 }

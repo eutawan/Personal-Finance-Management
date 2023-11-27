@@ -36,7 +36,7 @@ public class AutenticacaoController implements IAutenticacaoController {
                 int idade = ler.nextInt();
                 ler.nextLine();
                 if (idade < 16) {
-                    throw new RuntimeException("Incapaz de criar conta para menores de 16 anos");
+                    throw new UtilizadorException("Incapaz de criar conta para menores de 16 anos");
                 }
                 System.out.print("Digite seu nome de usuario: ");
                 String nomeUsuario = ler.nextLine();
@@ -57,7 +57,7 @@ public class AutenticacaoController implements IAutenticacaoController {
                 int idade = ler.nextInt();
                 ler.nextLine();
                 if (idade < 16) {
-                    throw new RuntimeException("Incapaz de criar conta para menores de 16 anos");
+                    throw new UtilizadorException("Incapaz de criar conta para menores de 16 anos");
                 }
                 System.out.print("Digite sua Profissao: ");
                 String profissao = ler.nextLine();
@@ -81,8 +81,29 @@ public class AutenticacaoController implements IAutenticacaoController {
     }
 
     @Override
-    public void login() {
+    public boolean login() {
+        try {
+            Scanner ler = new Scanner(System.in);
+            System.out.print("Digite seu nome de Usuario: ");
+            String nomeUsuario = ler.nextLine();
+            System.out.print("Digite sua senha: ");
+            String senha = ler.nextLine();
 
+            Utilizador<? extends Pessoa> utl = dao.buscar(nomeUsuario);
+
+            if (utl == null) {
+                throw new UtilizadorException("Utilizador Inexistente");
+            }
+
+            if (utl.getNomeUsuario().equals(nomeUsuario) && utl.getSenha().equals(senha)) {
+                return true;
+            } else {
+                throw new UtilizadorException("Senha Incorreta");
+            }
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
     }
 
     @Override
