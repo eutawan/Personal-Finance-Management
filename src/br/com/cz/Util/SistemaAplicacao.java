@@ -14,6 +14,7 @@ public class SistemaAplicacao {
                 "1 - CRIAR CONTA\n" +
                 "2 - FAZER LOGIN\n" +
                 "3 - REMOVER CONTA\n" +
+                "4 - ATUALIZAR CONTA\n" +
                 "0 - SAIR\n" +
                 "OPÇÃO: ");
         Scanner ler = new Scanner(System.in);

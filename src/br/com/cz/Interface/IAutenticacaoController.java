@@ -12,7 +12,7 @@ public interface IAutenticacaoController {
     boolean adicionarUtilizador(Utilizador<? extends Pessoa> utl);
     boolean excluirUtilizador(Utilizador<? extends Pessoa> utl);
     boolean excluirUtilizador(String nomeDeUsuario, String senha);
-    boolean buscarUtilizador(Utilizador<? extends Pessoa> utl);
-    boolean buscarUtilizador(String nomeDeUsuario);
+    Utilizador<? extends Pessoa> buscarUtilizador(String nomeDeUsuario);
+    boolean buscarUtilizador(String nomeDeUsuario, String senha);
     boolean atualizarUtilizador(String nomeDeUsuario, String senha, Utilizador<? extends Pessoa> utl);
 }

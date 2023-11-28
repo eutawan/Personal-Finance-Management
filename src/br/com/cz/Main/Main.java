@@ -1,8 +1,8 @@
 package br.com.cz.Main;
 import br.com.cz.Controller.AutenticacaoController;
-import br.com.cz.Exception.UtilizadorException;
 import br.com.cz.Model.Pessoal;
 import br.com.cz.Model.Profissional;
+import br.com.cz.Model.Utilizador;
 import br.com.cz.Util.SistemaAplicacao;
 
 import java.util.Scanner;
@@ -19,8 +19,8 @@ public class Main {
                 Scanner ler = new Scanner(System.in);
 
                 System.out.println("""
-                1 - Pessoal
-                2 - Profissional""");
+                        1 - Pessoal
+                        2 - Profissional""");
 
                 System.out.print("Selecione uma opcao de Cadastro: ");
                 int op2 = ler.nextInt();
@@ -42,7 +42,9 @@ public class Main {
                     System.out.print("Digite sua senha: ");
                     String senha = ler.nextLine();
 
-                    boolean cadastro = autenticacaoController.cadastro();
+                    Utilizador<Pessoal> utilizador = new Utilizador<>(nomeUsuario, email, senha, contaPessoal);
+
+                    boolean cadastro = autenticacaoController.adicionarUtilizador(utilizador);
 
                     if (cadastro) {
                         System.out.println("=-=- CADASTRO REALIZADO COM SUCESSO -=-=");
@@ -68,8 +70,10 @@ public class Main {
                     System.out.print("Digite sua senha: ");
                     String senha = ler.nextLine();
 
+                    Utilizador<Profissional> utilizador = new Utilizador<>(nomeUsuario, email, senha, contaProfissional);
 
-                   boolean cadastro = autenticacaoController.cadastro();
+
+                    boolean cadastro = autenticacaoController.adicionarUtilizador(utilizador);
 
                     if (cadastro) {
                         System.out.println("=-=- CADASTRO REALIZADO COM SUCESSO -=-=");
@@ -86,7 +90,7 @@ public class Main {
                     System.out.print("Digite sua senha: ");
                     String senha = ler.nextLine();
 
-                    boolean login = autenticacaoController.login();
+                    boolean login = autenticacaoController.buscarUtilizador(nomeUsuario, senha);
 
                     if (login) {
                         op = sistema.menuPrincipal();
@@ -153,15 +157,91 @@ public class Main {
                 System.out.print("Digite sua senha: ");
                 String senha = ler.nextLine();
 
-                boolean excluir = autenticacaoController.excluirConta();
+                boolean excluir = autenticacaoController.excluirUtilizador(nomeUsuario, senha);
 
                 if (excluir) {
                     System.out.println("=-=- CONTA EXCLUIDA -=-=");
                 } else {
                     System.out.println("=-=- FALHA NA EXCLUSAO -=-=");
                 }
-            } else if (op.equals("0")) {
-                System.out.println("-=-= SAIR =-=-");
+
+            } else if (op.equals("4")) {
+                Scanner ler = new Scanner(System.in);
+
+                System.out.print("Digite seu nome de Usuario atual: ");
+                String nomeUsuarioAtual = ler.nextLine();
+                System.out.print("Digite sua senha atual: ");
+                String senhaAtual = ler.nextLine();
+
+                System.out.println("""
+                        1 - Pessoal
+                        2 - Profissional""");
+
+                System.out.print("Selecione uma opcao de Cadastro: ");
+                int op2 = ler.nextInt();
+                ler.nextLine();
+
+                if (op2 == 1) {
+                    System.out.print("Digite seu novo nome: ");
+                    String nome = ler.nextLine();
+                    System.out.print("Digite sua nova idade: ");
+                    int idade = ler.nextInt();
+                    ler.nextLine();
+
+                    Pessoal contaPessoal = new Pessoal(nome, idade);
+
+                    System.out.print("Digite seu novo nome de usuario: ");
+                    String nomeUsuario = ler.nextLine();
+                    System.out.print("Digite seu novo email: ");
+                    String email = ler.nextLine();
+                    System.out.print("Digite sua nova senha: ");
+                    String senha = ler.nextLine();
+
+                    Utilizador<Pessoal> utilizadorNovo = new Utilizador<>(nomeUsuario, email, senha, contaPessoal);
+
+                    boolean atualizacao = autenticacaoController.atualizarUtilizador(nomeUsuarioAtual, senhaAtual, utilizadorNovo);
+
+                    if (atualizacao) {
+                        System.out.println("=-=- ATUALIZACAO REALIZADA COM SUCESSO -=-=");
+                    } else {
+                        System.out.println("=-=- ATUALIZACAO NÃO REALIZADA -=-=");
+                        ;
+                    }
+
+                } else if (op2 == 2) {
+                    System.out.print("Digite seu novo nome: ");
+                    String nome = ler.nextLine();
+                    System.out.print("Digite sua nova idade: ");
+                    int idade = ler.nextInt();
+                    ler.nextLine();
+                    System.out.print("Digite sua nova Profissao: ");
+                    String profissao = ler.nextLine();
+
+                    Profissional contaProfissional = new Profissional(nome, idade, profissao);
+
+                    System.out.print("Digite seu novo nome de usuario: ");
+                    String nomeUsuario = ler.nextLine();
+                    System.out.print("Digite seu novo email: ");
+                    String email = ler.nextLine();
+                    System.out.print("Digite sua nova senha: ");
+                    String senha = ler.nextLine();
+
+                    Utilizador<Profissional> utilizadorNovo = new Utilizador<>(nomeUsuario, email, senha, contaProfissional);
+
+                    boolean atualizacao = autenticacaoController.atualizarUtilizador(nomeUsuarioAtual, senhaAtual, utilizadorNovo);
+
+                    if (atualizacao) {
+                        System.out.println("=-=- ATUALIZACAO REALIZADA COM SUCESSO -=-=");
+                    } else {
+                        System.out.println("=-=- ATUALIZACAO NÃO REALIZADA -=-=");
+                    }
+
+                } else if (op.equals("0")) {
+                    System.out.println("-=-= SAIR =-=-");
+                    break;
+                } else {
+                    System.out.println("=-=- OPCAO INVALIDA-=-=");
+                }
             }
         }
     }

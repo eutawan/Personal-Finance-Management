@@ -1,12 +1,12 @@
 package br.com.cz.Controller;
 
 import br.com.cz.Dao.UtilizadorDAO;
+import br.com.cz.Exception.IdadeInvalidaException;
+import br.com.cz.Exception.SenhaIncorretaException;
 import br.com.cz.Exception.UtilizadorException;
 import br.com.cz.Interface.IAutenticacaoController;
 import br.com.cz.Interface.IDao;
 import br.com.cz.Model.Pessoa;
-import br.com.cz.Model.Pessoal;
-import br.com.cz.Model.Profissional;
 import br.com.cz.Model.Utilizador;
 
 import java.util.Scanner;
@@ -21,9 +21,19 @@ public class AutenticacaoController implements IAutenticacaoController {
     @Override
     public boolean adicionarUtilizador(Utilizador<? extends Pessoa> utl) {
         try {
-
-        } catch (UtilizadorException e) {
+            if (utl != null) {
+                if (utl.getPessoa().getIdade() < 16) {
+                    throw new IdadeInvalidaException();
+                } else {
+                    return this.dao.adicionar(utl);
+                }
+            } else {
+                throw new UtilizadorException();
+            }
+        } catch (IdadeInvalidaException e) {
             System.err.println(e.getMessage());
+        } catch (UtilizadorException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -31,7 +41,11 @@ public class AutenticacaoController implements IAutenticacaoController {
     @Override
     public boolean excluirUtilizador(Utilizador<? extends Pessoa> utl) {
         try {
-
+            if (utl != null) {
+                return this.dao.remover(utl);
+            } else {
+                throw new UtilizadorException();
+            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
         }
@@ -41,28 +55,60 @@ public class AutenticacaoController implements IAutenticacaoController {
     @Override
     public boolean excluirUtilizador(String nomeDeUsuario, String senha) {
         try {
+            Utilizador<? extends Pessoa> utlBuscado = this.dao.buscar(nomeDeUsuario);
 
+            if (utlBuscado != null) {
+                boolean senhaCorreta = utlBuscado.getSenha().equals(senha);
+                if (senhaCorreta) {
+                    return this.dao.remover(utlBuscado);
+                } else {
+                    throw new SenhaIncorretaException();
+                }
+            } else {
+                throw new UtilizadorException();
+            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
+        } catch (SenhaIncorretaException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
     @Override
-    public boolean buscarUtilizador(Utilizador<? extends Pessoa> utl) {
+    public Utilizador<? extends Pessoa> buscarUtilizador(String nomeDeUsuario) {
         try {
+            Utilizador<? extends Pessoa> utlBuscado = this.dao.buscar(nomeDeUsuario);
 
+            if (utlBuscado != null) {
+                return utlBuscado;
+            } else {
+                throw new UtilizadorException();
+            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean buscarUtilizador(String nomeDeUsuario) {
+    public boolean buscarUtilizador(String nomeDeUsuario, String senha) {
         try {
+            Utilizador<? extends Pessoa> utlBuscado = this.dao.buscar(nomeDeUsuario);
 
+            if (utlBuscado != null) {
+                boolean senhaCorreta = utlBuscado.getSenha().equals(senha);
+                if (senhaCorreta) {
+                    return true;
+                } else {
+                    throw new SenhaIncorretaException();
+                }
+            } else {
+                throw new UtilizadorException();
+            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
+        } catch (SenhaIncorretaException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -70,9 +116,22 @@ public class AutenticacaoController implements IAutenticacaoController {
     @Override
     public boolean atualizarUtilizador(String nomeDeUsuario, String senha, Utilizador<? extends Pessoa> utl) {
         try {
+            Utilizador<? extends Pessoa> utlBuscado = this.dao.buscar(nomeDeUsuario);
 
+            if (utlBuscado != null && utl != null) {
+                boolean senhaCorreta = utlBuscado.getSenha().equals(senha);
+                if (senhaCorreta) {
+                    return this.dao.atualizar(nomeDeUsuario, utl);
+                } else {
+                    throw new SenhaIncorretaException();
+                }
+            } else {
+                throw new UtilizadorException();
+            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
+        } catch (SenhaIncorretaException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
