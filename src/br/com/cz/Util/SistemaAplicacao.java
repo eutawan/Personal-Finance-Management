@@ -5,10 +5,8 @@ import br.com.cz.Controller.AutenticacaoController;
 
 public class SistemaAplicacao {
 
-    private AutenticacaoController autenticacaoController;
-
     public SistemaAplicacao() {
-        this.autenticacaoController = new AutenticacaoController();
+
     }
 
     public String menuInicial(){
@@ -68,109 +66,5 @@ public class SistemaAplicacao {
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
-    }
-
-    public void executar() {
-        while (true) {
-            String op = menuInicial();
-            if (op.equals("1")) {
-                boolean cadastro = autenticacaoController.cadastro();
-                if (cadastro) {
-                    System.out.println("=-=- CADASTRO REALIZADO COM SUCESSO -=-=");
-                } else {
-                    System.out.println("=-=- CADASTRO NÃO REALIZADO -=-=");
-                }
-            }
-            else if(op.equals("2")) {
-                while (true) {
-                    boolean login = autenticacaoController.login();
-
-                    if (login) {
-                        op = menuPrincipal();
-                        if (op.equals("1")) {
-                            while (true) {
-                                op = menuConta();
-                                if(op.equals("1")) {
-
-                                }
-                                else if (op.equals("2")) {
-
-                                }
-                                else if (op.equals("3")) {
-
-                                }
-                                else if(op.equals("4")) {
-
-                                }
-                                else if (op.equals("0")) {
-                                    System.out.println("-=-= VOLTAR =-=-");
-                                    break;
-                                }
-
-                            }
-                        }
-                        else if(op.equals("2")) {
-                            while (true) {
-                                op = menuTransacao();
-                                if(op.equals("1")) {
-
-                                }
-                                else if (op.equals("2")) {
-
-                                }
-                                else if (op.equals("3")) {
-
-                                }
-                                else if (op.equals("0")) {
-                                    System.out.println("-=-= VOLTAR =-=-");
-                                    break;
-                                }
-                            }
-
-                        }
-                        else if (op.equals("3")) {
-                            while (true) {
-                                op = menuInvestimento();
-                                if(op.equals("1")) {
-
-                                }
-                                else if (op.equals("2")) {
-
-                                }
-                                else if (op.equals("3")) {
-
-                                }
-                                else if (op.equals("0")) {
-                                    System.out.println("-=-= VOLTAR =-=-");
-                                    break;
-                                }
-
-                            }
-
-                        }
-                        else if (op.equals("0")) {
-                            System.out.println("-=-= VOLTAR =-=-");
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-            else if(op.equals("3")) {
-                boolean excluir = autenticacaoController.excluirConta();
-
-                if (excluir) {
-                    System.out.println("=-=- CONTA EXCLUIDA -=-=");
-                } else {
-                    System.out.println("=-=- FALHA NA EXCLUSAO -=-=");
-                }
-            }
-            else if (op.equals("0")) {
-                System.out.println("-=-= SAIR =-=-");
-                break;
-            }
-
-        }
     }
 }

@@ -19,61 +19,9 @@ public class AutenticacaoController implements IAutenticacaoController {
     }
 
     @Override
-    public boolean cadastro() {
+    public boolean adicionarUtilizador(Utilizador<? extends Pessoa> utl) {
         try {
-            Scanner ler = new Scanner(System.in);
-            System.out.println("""
-                1 - Pessoal
-                2 - Profissional""");
-            System.out.print("Selecione uma opcao de Cadastro: ");
-            int op = ler.nextInt();
-            ler.nextLine();
 
-            if (op == 1) {
-                System.out.print("Digite seu nome: ");
-                String nome = ler.nextLine();
-                System.out.print("Digite sua idade: ");
-                int idade = ler.nextInt();
-                ler.nextLine();
-                if (idade < 16) {
-                    throw new UtilizadorException("Incapaz de criar conta para menores de 16 anos");
-                }
-                System.out.print("Digite seu nome de usuario: ");
-                String nomeUsuario = ler.nextLine();
-                System.out.print("Digite seu email: ");
-                String email = ler.nextLine();
-                System.out.print("Digite sua senha: ");
-                String senha = ler.nextLine();
-
-                Pessoal contaPessoal = new Pessoal(nome, idade);
-
-                dao.adicionar(new Utilizador<Pessoal>(nomeUsuario, email, senha, contaPessoal));
-                return true;
-
-            } else if (op == 2) {
-                System.out.print("Digite seu nome: ");
-                String nome = ler.nextLine();
-                System.out.print("Digite sua idade: ");
-                int idade = ler.nextInt();
-                ler.nextLine();
-                if (idade < 16) {
-                    throw new UtilizadorException("Incapaz de criar conta para menores de 16 anos");
-                }
-                System.out.print("Digite sua Profissao: ");
-                String profissao = ler.nextLine();
-
-                Profissional contaProfissional = new Profissional(nome, idade, profissao);
-
-                System.out.print("Digite seu nome de usuario: ");
-                String nomeUsuario = ler.nextLine();
-                System.out.print("Digite seu email: ");
-                String email = ler.nextLine();
-                System.out.print("Digite sua senha: ");
-                String senha = ler.nextLine();
-
-                dao.adicionar(new Utilizador<Profissional>(nomeUsuario, email, senha, contaProfissional));
-                return true;
-            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
         }
@@ -81,25 +29,9 @@ public class AutenticacaoController implements IAutenticacaoController {
     }
 
     @Override
-    public boolean login() {
+    public boolean excluirUtilizador(Utilizador<? extends Pessoa> utl) {
         try {
-            Scanner ler = new Scanner(System.in);
-            System.out.print("Digite seu nome de Usuario: ");
-            String nomeUsuario = ler.nextLine();
-            System.out.print("Digite sua senha: ");
-            String senha = ler.nextLine();
 
-            Utilizador<? extends Pessoa> utl = dao.buscar(nomeUsuario);
-
-            if (utl == null) {
-                throw new UtilizadorException("Utilizador Inexistente");
-            }
-
-            if (utl.getNomeUsuario().equals(nomeUsuario) && utl.getSenha().equals(senha)) {
-                return true;
-            } else {
-                throw new UtilizadorException("Senha Incorreta");
-            }
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
         }
@@ -107,26 +39,38 @@ public class AutenticacaoController implements IAutenticacaoController {
     }
 
     @Override
-    public boolean excluirConta() {
+    public boolean excluirUtilizador(String nomeDeUsuario, String senha) {
         try {
-            Scanner ler = new Scanner(System.in);
-            System.out.print("Digite seu nome de Usuario: ");
-            String nomeUsuario = ler.nextLine();
-            System.out.print("Digite sua senha: ");
-            String senha = ler.nextLine();
 
-            Utilizador<? extends Pessoa> utl = dao.buscar(nomeUsuario);
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+    @Override
+    public boolean buscarUtilizador(Utilizador<? extends Pessoa> utl) {
+        try {
 
-            if (utl == null) {
-                throw new UtilizadorException("Utilizador Inexistente");
-            } else {
-                if (utl.getNomeUsuario().equals(nomeUsuario) && utl.getSenha().equals(senha)) {
-                    dao.remover(utl);
-                    return true;
-                } else {
-                    throw new UtilizadorException("Senha incorreta");
-                }
-            }
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean buscarUtilizador(String nomeDeUsuario) {
+        try {
+
+        } catch (UtilizadorException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean atualizarUtilizador(String nomeDeUsuario, String senha, Utilizador<? extends Pessoa> utl) {
+        try {
+
         } catch (UtilizadorException e) {
             System.err.println(e.getMessage());
         }

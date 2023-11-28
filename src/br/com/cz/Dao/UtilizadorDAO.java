@@ -20,12 +20,8 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     @Override
     public boolean adicionar(Utilizador<? extends Pessoa> utilizador) {
         try {
-            if (utilizador != null) {
-                return this.utilizadores.add(utilizador);
-            } else {
-                throw new UtilizadorException("Utilizador inexistente");
-            }
-        } catch (UtilizadorException e) {
+            return this.utilizadores.add(utilizador);
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return false;
@@ -34,30 +30,23 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     @Override
     public boolean remover(Utilizador<? extends Pessoa> utilizador) {
         try {
-            if (utilizador != null) {
-                return this.utilizadores.remove(utilizador);
-            } else {
-                throw new UtilizadorException("O utilizador pesquisado inexistente");
-            }
-        } catch (UtilizadorException e) {
+            return this.utilizadores.remove(utilizador);
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return false;
     }
 
     @Override
-    public boolean atualizar(Utilizador<? extends Pessoa> utilizador) {
+    public boolean atualizar(String nomeDoUsuario, Utilizador<? extends Pessoa> utilizadorNovo) {
         try {
-            if (utilizador != null) {
-                for(int i = 0; i < utilizadores.size(); i++)
-                    if (utilizadores.get(i).equals(utilizador)) {
-                        this.utilizadores.set(i, utilizador);
-                        return true;
-                    }
-            } else {
-                throw new UtilizadorException("Utilizador novo inexistente");
+            for(int i = 0; i < utilizadores.size(); i++) {
+                if (utilizadores.get(i).getNomeUsuario().equals(nomeDoUsuario)) {
+                    this.utilizadores.set(i, utilizadorNovo);
+                    return true;
+                }
             }
-        } catch (UtilizadorException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return false;
@@ -66,16 +55,12 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     @Override
     public Utilizador<? extends Pessoa> buscar(String nomeDoUsuario) {
         try {
-            if (nomeDoUsuario != null) {
-                for (Utilizador<? extends Pessoa> utl: utilizadores) {
-                    if (utl.getNomeUsuario().equals(nomeDoUsuario)) {
-                        return utl;
-                    }
+            for (Utilizador<? extends Pessoa> utl: utilizadores) {
+                if (utl.getNomeUsuario().equals(nomeDoUsuario)) {
+                    return utl;
                 }
-            } else {
-                throw new UtilizadorException("ID do utilizador não corresponde");
             }
-        } catch (UtilizadorException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return null;
@@ -84,12 +69,9 @@ public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     @Override
     public List<Utilizador<? extends Pessoa>> listar() {
         try {
-            if (utilizadores != null) {
-                return utilizadores;
-            } else {
-                throw new UtilizadorException("Nenhum Utilizador Cadastrado");
-            }
-        } catch (UtilizadorException e) {
+            return utilizadores;
+
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return null;
