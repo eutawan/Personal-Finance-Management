@@ -2,6 +2,8 @@ package br.com.cz.Interface;
 
 import br.com.cz.Model.ContaBancaria;
 
+import java.util.ArrayList;
+
 public interface IContaBancariaController {
 
     boolean adicionarConta(ContaBancaria contaBancaria);
@@ -9,5 +11,5 @@ public interface IContaBancariaController {
     boolean removerConta(ContaBancaria contaBancaria);
     boolean removerConta(String nomeInstituicao);
     ContaBancaria buscarConta(String nomeInstituicao);
-    ContaBancaria buscarConta(ContaBancaria contaBancaria);
+    ArrayList<ContaBancaria> listarContas();
 }

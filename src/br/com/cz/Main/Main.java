@@ -82,7 +82,8 @@ public class Main {
                     }
                 }
 
-            } else if (op.equals("2")) {
+            }
+            else if (op.equals("2")) {
                 while (true) {
                     Scanner ler = new Scanner(System.in);
                     System.out.print("Digite seu nome de Usuario: ");
@@ -139,9 +140,7 @@ public class Main {
                                     System.out.println("-=-= VOLTAR =-=-");
                                     break;
                                 }
-
                             }
-
                         } else if (op.equals("0")) {
                             System.out.println("-=-= VOLTAR =-=-");
                             break;
@@ -150,7 +149,8 @@ public class Main {
                         break;
                     }
                 }
-            } else if (op.equals("3")) {
+            }
+            else if (op.equals("3")) {
                 Scanner ler = new Scanner(System.in);
                 System.out.print("Digite seu nome de Usuario: ");
                 String nomeUsuario = ler.nextLine();
@@ -165,7 +165,8 @@ public class Main {
                     System.out.println("=-=- FALHA NA EXCLUSAO -=-=");
                 }
 
-            } else if (op.equals("4")) {
+            }
+            else if (op.equals("4")) {
                 Scanner ler = new Scanner(System.in);
 
                 System.out.print("Digite seu nome de Usuario atual: ");
@@ -236,12 +237,13 @@ public class Main {
                         System.out.println("=-=- ATUALIZACAO NÃO REALIZADA -=-=");
                     }
 
-                } else if (op.equals("0")) {
-                    System.out.println("-=-= SAIR =-=-");
-                    break;
-                } else {
-                    System.out.println("=-=- OPCAO INVALIDA-=-=");
                 }
+            }
+            else if (op.equals("0")) {
+                System.out.println("-=-= SAIR =-=-");
+                break;
+            } else {
+                System.out.println("=-=- OPCAO INVALIDA-=-=");
             }
         }
     }
