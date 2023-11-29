@@ -7,6 +7,7 @@ import br.com.cz.Model.Profissional;
 import br.com.cz.Model.Utilizador;
 import br.com.cz.Util.SistemaAplicacao;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -108,13 +109,37 @@ public class Main {
                                     System.out.print("Digite o saldo da conta: ");
                                     double saldoConta = ler.nextDouble();
                                     ler.nextLine();
-                                    ContaBancaria contaBancaria = new ContaBancaria(instituicao, saldoConta);
+                                    ContaBancaria contaBancaria = new ContaBancaria(instituicao, saldoConta, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
+                                    boolean cadastroConta = contaBancariaController.adicionarConta(contaBancaria);
 
+                                    if (cadastroConta) {
+                                        System.out.println("=-=- CONTA CADASTRADA COM SUCESSO -=-=");
+                                    } else {
+                                        System.out.println("=-=- NÃO FOI POSSÍVEL REALIZAR O CADASTRO -=-=");
+                                    }
                                 } else if (op.equals("2")) {
+                                    System.out.println("=-=- CONTAS DO UTILIZADOR -=-=");
+                                    ArrayList<ContaBancaria> contasBancarias = contaBancariaController.listarContas(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
+
+                                    for (ContaBancaria contasBancaria : contasBancarias) {
+                                        System.out.print("Instituição: " + contasBancaria.getInstituicao());
+                                        System.out.printf("Saldo da Conta: %.2f", contasBancaria.getSaldoConta());
+                                    }
 
                                 } else if (op.equals("3")) {
+                                    System.out.println("=-=- REMOVER CONTA -=-=");
+                                    System.out.print("Digite o nome da Instituíção que deseja remover: ");
+                                    String instuicao = ler.nextLine();
 
+                                    boolean removerConta = contaBancariaController.removerConta(instuicao);
+
+                                    if (removerConta) {
+                                        System.out.println("=-=- CONTA REMOVIDA COM SUCESSO -=-=");
+                                    } else {
+                                        System.out.println("=-=- NÃO FOI POSSÍVEL REMOVER A CONTA -=-=");
+                                    }
                                 } else if (op.equals("4")) {
+
 
                                 } else if (op.equals("0")) {
                                     System.out.println("-=-= VOLTAR =-=-");

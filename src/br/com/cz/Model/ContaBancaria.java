@@ -5,12 +5,14 @@ import java.util.UUID;
 
 public class ContaBancaria {
     private UUID idConta;
+    private UUID idUtilizador;
     private String instituicao;
     private double saldoConta;
 
-    public ContaBancaria(String instituicao, double saldoConta){
+    public ContaBancaria(String instituicao, double saldoConta, UUID idUtilizador){
         this.instituicao = instituicao;
         this.saldoConta = saldoConta;
+        this.idUtilizador = idUtilizador;
         this.idConta = UUID.randomUUID();
     }
 
@@ -32,6 +34,10 @@ public class ContaBancaria {
 
     public void setSaldoConta(double saldoConta) {
         this.saldoConta = saldoConta;
+    }
+
+    public UUID getIdUtilizador() {
+        return idUtilizador;
     }
 
     @Override

@@ -2,12 +2,13 @@ package br.com.cz.Controller;
 
 import br.com.cz.Dao.ContaBancariaDAO;
 import br.com.cz.Exception.ContaBancariaException;
-import br.com.cz.Interface.IAutenticacaoController;
 import br.com.cz.Interface.IContaBancariaController;
 import br.com.cz.Interface.IDao;
 import br.com.cz.Model.ContaBancaria;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class ContaBancariaController implements IContaBancariaController {
     private IDao<ContaBancaria> dao;
@@ -84,9 +85,21 @@ public class ContaBancariaController implements IContaBancariaController {
     }
 
     @Override
-    public ArrayList<ContaBancaria> listarContas(){
+    public ArrayList<ContaBancaria> listarContas(UUID idDoUtilizador){
         try {
+            List<ContaBancaria> contasBancarias = this.dao.listar();
+            ArrayList<ContaBancaria> contasBancariasUtl = new ArrayList<>();
 
+            if(contasBancarias != null) {
+                for (ContaBancaria cnt : contasBancarias) {
+                    if (cnt.getIdUtilizador() == idDoUtilizador) {
+                        contasBancariasUtl.add(cnt);
+                    }
+                }
+                return contasBancariasUtl;
+            } else {
+                throw new ContaBancariaException();
+            }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());
         }

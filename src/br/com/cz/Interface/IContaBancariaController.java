@@ -3,6 +3,8 @@ package br.com.cz.Interface;
 import br.com.cz.Model.ContaBancaria;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public interface IContaBancariaController {
 
@@ -11,5 +13,5 @@ public interface IContaBancariaController {
     boolean removerConta(ContaBancaria contaBancaria);
     boolean removerConta(String nomeInstituicao);
     ContaBancaria buscarConta(String nomeInstituicao);
-    ArrayList<ContaBancaria> listarContas();
+    List<ContaBancaria> listarContas(UUID idDoUtilizador);
 }
