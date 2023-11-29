@@ -1,5 +1,7 @@
 package br.com.cz.Main;
 import br.com.cz.Controller.AutenticacaoController;
+import br.com.cz.Controller.ContaBancariaController;
+import br.com.cz.Model.ContaBancaria;
 import br.com.cz.Model.Pessoal;
 import br.com.cz.Model.Profissional;
 import br.com.cz.Model.Utilizador;
@@ -10,6 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         AutenticacaoController autenticacaoController = new AutenticacaoController();
+        ContaBancariaController contaBancariaController = new ContaBancariaController();
         SistemaAplicacao sistema = new SistemaAplicacao();
 
         while (true) {
@@ -99,6 +102,13 @@ public class Main {
                             while (true) {
                                 op = sistema.menuConta();
                                 if (op.equals("1")) {
+                                    System.out.println("-=-= CADASTRANDO CONTA BANCÁRIA =-=-");
+                                    System.out.print("Digite o nome da instituição: ");
+                                    String instituicao = ler.nextLine();
+                                    System.out.print("Digite o saldo da conta: ");
+                                    double saldoConta = ler.nextDouble();
+                                    ler.nextLine();
+                                    ContaBancaria contaBancaria = new ContaBancaria(instituicao, saldoConta);
 
                                 } else if (op.equals("2")) {
 

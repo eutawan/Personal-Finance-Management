@@ -47,7 +47,9 @@ public class ContaBancariaController implements IContaBancariaController {
     @Override
     public boolean removerConta(ContaBancaria contaBancaria) {
         try {
-
+            if (contaBancaria != null){
+                return this.dao.remover(contaBancaria);
+            }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());
         }
@@ -57,7 +59,10 @@ public class ContaBancariaController implements IContaBancariaController {
     @Override
     public boolean removerConta(String nomeInstituicao) {
         try {
-
+            ContaBancaria cntBuscado = this.dao.buscar(nomeInstituicao);
+            if (nomeInstituicao != null && cntBuscado != null){
+                return this.dao.remover(cntBuscado);
+            }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());
         }
@@ -67,7 +72,11 @@ public class ContaBancariaController implements IContaBancariaController {
     @Override
     public ContaBancaria buscarConta(String nomeInstituicao) {
         try {
+            if (nomeInstituicao != null){
+                ContaBancaria cntBuscado = this.dao.buscar(nomeInstituicao);
+                return cntBuscado;
 
+            }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());
         }

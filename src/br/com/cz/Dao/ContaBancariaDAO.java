@@ -39,7 +39,7 @@ public class ContaBancariaDAO implements IDao<ContaBancaria> {
     public boolean atualizar(String identificador, ContaBancaria contaBancariaNova) {
         try {
             for (int i = 0; i < contasBancarias.size(); i++) {
-                if (contasBancarias.get(i).equals(identificador)){
+                if (contasBancarias.get(i).getInstituicao().equals(identificador)){
                     contasBancarias.set(i, contaBancariaNova);
                     return true;
                 }
@@ -54,7 +54,7 @@ public class ContaBancariaDAO implements IDao<ContaBancaria> {
     public ContaBancaria buscar(String identificador) {
         try {
             for (ContaBancaria cnt : contasBancarias) {
-                if (cnt.equals(identificador)){
+                if (cnt.getInstituicao().equals(identificador)){
                     return cnt;
                 }
             }
