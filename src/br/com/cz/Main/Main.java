@@ -139,7 +139,31 @@ public class Main {
                                         System.out.println("=-=- NÃO FOI POSSÍVEL REMOVER A CONTA -=-=");
                                     }
                                 } else if (op.equals("4")) {
+                                    System.out.println("=-=- ATUALIZAR CONTA -=-=");
+                                    System.out.println("Digite o nome da Insittuição que deseja atualizar: ");
+                                    String instituicaoAtual = ler.nextLine();
 
+                                    System.out.print("Deseja atualizar apenas o saldo? (Y/N): ");
+                                    String resp = ler.next();
+
+                                    switch (resp) {
+                                        case "Y":
+                                            System.out.println("Digite o novo Saldo: ");
+                                            double saldoNovo = ler.nextDouble();
+                                            ContaBancaria contaBancariaAtualizar = new ContaBancaria(instituicaoAtual, saldoNovo, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
+                                            contaBancariaController.atualizarConta(instituicaoAtual, contaBancariaAtualizar);
+                                            break;
+                                        case "N":
+                                            System.out.print("Digite o novo nome da Instituição: ");
+                                            String instituicaoNovo = ler.nextLine();
+                                            System.out.print("Digite o novo Saldo: ");
+                                            saldoNovo = ler.nextDouble();
+                                            contaBancariaAtualizar = new ContaBancaria(instituicaoNovo, saldoNovo, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
+                                            contaBancariaController.atualizarConta(instituicaoAtual, contaBancariaAtualizar);
+                                            break;
+                                        default:
+                                            System.out.println("Opção Inválida");
+                                    }
 
                                 } else if (op.equals("0")) {
                                     System.out.println("-=-= VOLTAR =-=-");
