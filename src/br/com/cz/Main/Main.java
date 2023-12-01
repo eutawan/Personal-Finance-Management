@@ -1,6 +1,7 @@
 package br.com.cz.Main;
 import br.com.cz.Controller.AutenticacaoController;
 import br.com.cz.Controller.ContaBancariaController;
+import br.com.cz.Exception.OptionException;
 import br.com.cz.Model.ContaBancaria;
 import br.com.cz.Model.Pessoal;
 import br.com.cz.Model.Profissional;
@@ -84,6 +85,8 @@ public class Main {
                     } else {
                         System.out.println("=-=- CADASTRO NÃO REALIZADO -=-=");
                     }
+                } else {
+                    throw new OptionException();
                 }
 
             }
@@ -168,24 +171,72 @@ public class Main {
                                 } else if (op.equals("0")) {
                                     System.out.println("-=-= VOLTAR =-=-");
                                     break;
+                                } else {
+                                    throw new OptionException();
                                 }
-
                             }
-                        } else if (op.equals("2")) {
+                        }
+                        else if (op.equals("2")) {
                             while (true) {
                                 op = sistema.menuTransacao();
                                 if (op.equals("1")) {
+                                    while (true) {
+                                        op = sistema.menuDespesa();
+                                        if (op.equals("1")) {
 
+                                        } else if (op.equals("2")) {
+
+                                        } else if (op.equals("3")) {
+
+                                        } else if (op.equals("4")) {
+
+                                        } else if (op.equals("0")) {
+
+                                        } else {
+                                            throw new OptionException();
+                                        }
+                                    }
                                 } else if (op.equals("2")) {
+                                    while (true) {
+                                        op = sistema.menuRenda();
+                                        if (op.equals("1")) {
 
+                                        } else if (op.equals("2")) {
+
+                                        } else if (op.equals("3")) {
+
+                                        } else if (op.equals("4")) {
+
+                                        } else if (op.equals("0")) {
+
+                                        } else {
+                                            throw new OptionException();
+                                        }
+                                    }
                                 } else if (op.equals("3")) {
+                                    while (true) {
+                                        op = sistema.menuTransfer();
+                                        if (op.equals("1")) {
 
+                                        } else if (op.equals("2")) {
+
+                                        } else if (op.equals("3")) {
+
+                                        } else if (op.equals("4")) {
+
+                                        } else if (op.equals("0")) {
+
+                                        } else {
+                                            throw new OptionException();
+                                        }
+                                    }
                                 } else if (op.equals("0")) {
                                     System.out.println("-=-= VOLTAR =-=-");
                                     break;
+                                } else {
+                                    throw new OptionException();
                                 }
                             }
-
                         } else if (op.equals("3")) {
                             while (true) {
                                 op = sistema.menuInvestimento();
@@ -203,9 +254,11 @@ public class Main {
                         } else if (op.equals("0")) {
                             System.out.println("-=-= VOLTAR =-=-");
                             break;
+                        } else {
+                            throw new OptionException();
                         }
                     } else {
-                        break;
+                        throw new OptionException();
                     }
                 }
             }
@@ -296,13 +349,15 @@ public class Main {
                         System.out.println("=-=- ATUALIZACAO NÃO REALIZADA -=-=");
                     }
 
+                } else {
+                    throw new OptionException();
                 }
             }
             else if (op.equals("0")) {
                 System.out.println("-=-= SAIR =-=-");
                 break;
             } else {
-                System.out.println("=-=- OPCAO INVALIDA-=-=");
+                throw new OptionException();
             }
         }
     }

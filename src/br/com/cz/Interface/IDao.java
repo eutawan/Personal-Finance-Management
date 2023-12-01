@@ -5,6 +5,6 @@ public interface IDao<T> {
     boolean adicionar(T objeto);
     boolean remover(T objeto);
     boolean atualizar(String identificador, T objeto);
-    T buscar(String Identificador);
+    T buscar(String identificador);
     List<T> listar();
 }
