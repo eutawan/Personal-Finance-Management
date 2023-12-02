@@ -7,10 +7,10 @@ import java.util.UUID;
 
 public interface IRendaController {
     boolean adicionarRenda(Renda renda);
-    boolean atualizarRenda(String idDaTransacao, Renda renda);
+    boolean editarRenda(String idDaTransacao, Renda rendaNova);
     boolean removerRenda(Renda renda);
     boolean removerRenda(String idDaTransacao);
     Renda buscarRenda(String idDaTransacao);
-    Renda buscarRenda(UUID idDaConta, String idDaTransacao);
-    List<Renda> listarRendas();
+    List<Renda> buscarRenda(UUID idDaConta, UUID idUtilizador);
+    List<Renda> listarRendas(UUID idUtilizador);
 }

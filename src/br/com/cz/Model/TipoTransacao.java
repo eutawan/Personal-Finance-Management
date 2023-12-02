@@ -6,18 +6,20 @@ import java.util.UUID;
 public abstract class TipoTransacao {
     private String idTransacao;
     private UUID idConta;
+    private UUID idUtilizador;
     private String instituicao;
     private double valor;
     private LocalDate data;
     private String metodoDePagamento;
 
-    public TipoTransacao(String instituicao, double valor, String metodoDePagamento, UUID idConta){
+    public TipoTransacao(String instituicao, double valor, String metodoDePagamento, UUID idConta, UUID idUtilizador){
         this.instituicao = instituicao;
         this.valor = valor;
         this.metodoDePagamento = metodoDePagamento;
         this.idTransacao = UUID.randomUUID().toString();
         this.data = LocalDate.now();
         this.idConta = idConta;
+        this.idUtilizador = idUtilizador;
     }
 
     public String getIdTransacao() {
@@ -26,6 +28,10 @@ public abstract class TipoTransacao {
 
     public UUID getIdConta() {
         return idConta;
+    }
+
+    public UUID getIdUtilizador() {
+        return idUtilizador;
     }
 
     public String getInstituicao() {

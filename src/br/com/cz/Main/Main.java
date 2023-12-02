@@ -1,6 +1,5 @@
 package br.com.cz.Main;
-import br.com.cz.Controller.AutenticacaoController;
-import br.com.cz.Controller.ContaBancariaController;
+import br.com.cz.Controller.*;
 import br.com.cz.Exception.OptionException;
 import br.com.cz.Model.ContaBancaria;
 import br.com.cz.Model.Pessoal;
@@ -15,6 +14,10 @@ public class Main {
     public static void main(String[] args) {
         AutenticacaoController autenticacaoController = new AutenticacaoController();
         ContaBancariaController contaBancariaController = new ContaBancariaController();
+        DespesaController despesaController = new DespesaController();
+        RendaController rendaController = new RendaController();
+        TransferController transferController = new TransferController();
+
         SistemaAplicacao sistema = new SistemaAplicacao();
 
         while (true) {

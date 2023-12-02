@@ -9,11 +9,11 @@ public interface ITransferController {
 
     boolean adicionarTransfer(Transferencia transferencia);
 
-    List<Transferencia> listarTransfers();
+    List<Transferencia> listarTransfers(UUID idUtilizaodr);
 
     Transferencia buscarTransfer(String idDaTransacao);
 
-    Transferencia buscarTransfer(UUID idDaConta, String idDaTransacao);
+    List<Transferencia> buscarTransfer(UUID idDaConta, UUID idUtilizador);
 
     boolean editarTransfer(String idDaTransacao, Transferencia transferNova);
 

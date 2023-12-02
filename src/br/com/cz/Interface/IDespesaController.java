@@ -10,11 +10,11 @@ public interface IDespesaController {
 
     boolean adicionarDespesa(Despesa despesa);
 
-    List<Despesa> listarDespesa();
+    List<Despesa> listarDespesa(UUID idUtilizador);
 
     Despesa buscarDespesa(String idDaTransacao);
 
-    Despesa buscarDespesa(UUID idDaConta, String idDaTransacao);
+    List<Despesa> buscarDespesas(UUID idDaConta, String idUtilizador);
 
     boolean editarDespesa(String idDaTransacao, Despesa despesaNova);
 
