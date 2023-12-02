@@ -1,14 +1,13 @@
 package br.com.cz.Main;
 import br.com.cz.Controller.*;
+import br.com.cz.Exception.NaoPagoException;
 import br.com.cz.Exception.OptionException;
-import br.com.cz.Model.ContaBancaria;
-import br.com.cz.Model.Pessoal;
-import br.com.cz.Model.Profissional;
-import br.com.cz.Model.Utilizador;
+import br.com.cz.Model.*;
 import br.com.cz.Util.SistemaAplicacao;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,16 +25,15 @@ public class Main {
             if (op.equals("1")) {
                 Scanner ler = new Scanner(System.in);
 
-                System.out.println("""
-                        1 - Pessoal
-                        2 - Profissional""");
+                System.out.print("\n1 - Pessoal\n" +
+                        "2 - Profissional\n");
 
                 System.out.print("Selecione uma opcao de Cadastro: ");
                 int op2 = ler.nextInt();
                 ler.nextLine();
 
                 if (op2 == 1) {
-                    System.out.print("Digite seu nome: ");
+                    System.out.print("\nDigite seu nome: ");
                     String nome = ler.nextLine();
                     System.out.print("Digite sua idade: ");
                     int idade = ler.nextInt();
@@ -61,7 +59,7 @@ public class Main {
                     }
 
                 } else if (op2 == 2) {
-                    System.out.print("Digite seu nome: ");
+                    System.out.print("\nDigite seu nome: ");
                     String nome = ler.nextLine();
                     System.out.print("Digite sua idade: ");
                     int idade = ler.nextInt();
@@ -96,7 +94,7 @@ public class Main {
             else if (op.equals("2")) {
                 while (true) {
                     Scanner ler = new Scanner(System.in);
-                    System.out.print("Digite seu nome de Usuario: ");
+                    System.out.print("\nDigite seu nome de Usuario: ");
                     String nomeUsuario = ler.nextLine();
                     System.out.print("Digite sua senha: ");
                     String senha = ler.nextLine();
@@ -128,7 +126,7 @@ public class Main {
                                     ArrayList<ContaBancaria> contasBancarias = contaBancariaController.listarContas(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
 
                                     for (ContaBancaria contasBancaria : contasBancarias) {
-                                        System.out.print("Instituição: " + contasBancaria.getInstituicao());
+                                        System.out.println("Instituição: " + contasBancaria.getInstituicao());
                                         System.out.printf("Saldo da Conta: %.2f", contasBancaria.getSaldoConta());
                                     }
 
@@ -186,6 +184,37 @@ public class Main {
                                     while (true) {
                                         op = sistema.menuDespesa();
                                         if (op.equals("1")) {
+                                            System.out.print("\nDigite o valor da Despesa: ");
+                                            double valor = ler.nextDouble();
+                                            ler.nextLine();
+                                            System.out.print("Digite o nome da instituição: ");
+                                            String nomeInstituicao = ler.nextLine();
+                                            System.out.print("Digite o método de pagamento: ");
+                                            String metodoPagamento = ler.nextLine();
+                                            System.out.print("Foi pago? (y/n): ");
+                                            String isFoiPago = ler.next();
+                                            boolean foiPago;
+                                            if (isFoiPago.toLowerCase().equals("y")) {
+                                                foiPago = true;
+                                            } else {
+                                                foiPago = false;
+                                            }
+                                            ContaBancaria contaBancaria = contaBancariaController.buscarConta(nomeInstituicao);
+                                            UUID idContaBancaria = contaBancaria.getIdUtilizador();
+                                            UUID idUtilizador = autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador();
+                                            Despesa despesa = new Despesa(nomeInstituicao, valor, metodoPagamento,  idContaBancaria, idUtilizador, foiPago);
+
+                                            try {
+                                                if (foiPago) {
+                                                    despesaController.adicionarDespesa(despesa);
+                                                    contaBancaria.setSaldoConta(contaBancaria.getSaldoConta() - valor);
+                                                    System.out.println("=-=- DESPESA CRIADA COM SUCESSO");
+                                                } else {
+                                                    throw new NaoPagoException();
+                                                }
+                                            } catch (NaoPagoException e) {
+                                                System.out.println(e.getMessage());
+                                            }
 
                                         } else if (op.equals("2")) {
 
@@ -194,6 +223,8 @@ public class Main {
                                         } else if (op.equals("4")) {
 
                                         } else if (op.equals("0")) {
+                                            System.out.println("=-=- SAINDO MENU DESPESA");
+                                            break;
 
                                         } else {
                                             throw new OptionException();
@@ -211,6 +242,8 @@ public class Main {
                                         } else if (op.equals("4")) {
 
                                         } else if (op.equals("0")) {
+                                            System.out.println("=-=- SAINDO MENU RENDA");
+                                            break;
 
                                         } else {
                                             throw new OptionException();
@@ -228,6 +261,8 @@ public class Main {
                                         } else if (op.equals("4")) {
 
                                         } else if (op.equals("0")) {
+                                            System.out.println("=-=- SAINDO MENU TRANSFERENCIA");
+                                            break;
 
                                         } else {
                                             throw new OptionException();

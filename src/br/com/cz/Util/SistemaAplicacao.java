@@ -10,13 +10,13 @@ public class SistemaAplicacao {
     }
 
     public String menuInicial(){
-        System.out.print("\t-=-= GERENCIAMENTO FINANÇAS PESSOAIS =-=-\n" +
+        System.out.print("\n-=-= GERENCIAMENTO FINANÇAS PESSOAIS =-=-\n" +
                 "1 - CRIAR CONTA\n" +
                 "2 - FAZER LOGIN\n" +
                 "3 - REMOVER CONTA\n" +
                 "4 - ATUALIZAR CONTA\n" +
-                "0 - SAIR\n" +
-                "OPÇÃO: ");
+                "0 - SAIR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
@@ -24,82 +24,82 @@ public class SistemaAplicacao {
     }
 
     public String menuPrincipal() {
-        System.out.print("\t-=-= SELECIONE O SISTEMA =-=-\n" +
+        System.out.print("\n-=-= SELECIONE O SISTEMA =-=-\n" +
                 "1 - CONTAS BANCARIAS\n" +
                 "2 - TRANSACOES\n" +
                 "3 - INVESTIMENTOS\n" +
-                "0 - SAIR DA CONTA\n" +
-                "OPÇÃO: ");
+                "0 - SAIR DA CONTA\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuConta() {
-        System.out.print("\t-=-= CONTAS BANCARIAS =-=-\n" +
+        System.out.print("\n-=-= CONTAS BANCARIAS =-=-\n" +
                 "1 - CADASTRAR CONTA\n" +
                 "2 - MOSTRAR CONTAS\n" +
                 "3 - REMOVER CONTA\n" +
                 "4 - ATUALIZAR CONTA\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuInvestimento() {
-        System.out.print("\t-=-= INVESTIMENTO =-=-\n" +
+        System.out.print("\n-=-= INVESTIMENTO =-=-\n" +
                 "1 - FAZER INVESTIMENTO\n" +
                 "2 - FAZER APORTE\n" +
                 "3 - FAZER RESGATE\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuTransacao() {
-        System.out.print("\t-=-= TRANSAÇÕES =-=-\n" +
+        System.out.print("\n-=-= TRANSAÇÕES =-=-\n" +
                 "1 - DESPESA\n" +
                 "2 - RENDA\n" +
                 "3 - TRANSFERENCIA\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuDespesa() {
-        System.out.print("\t-=-= DESPESAS =-=-\n" +
+        System.out.print("\n-=-= DESPESAS =-=-\n" +
                 "1 - ADICIONAR DESPESA\n" +
                 "2 - EDTIAR DESPESA\n" +
                 "3 - REMOVER DESPESA\n" +
                 "4 - LISTAR DESPESAS\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuRenda() {
-        System.out.print("\t-=-= RENDAS =-=-\n" +
+        System.out.print("\n-=-= RENDAS =-=-\n" +
                 "1 - ADICIONAR RENDA\n" +
                 "2 - EDTIAR RENDA\n" +
                 "3 - REMOVER RENDA\n" +
                 "4 - LISTAR RENDAS\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
     }
     public String menuTransfer() {
-        System.out.print("\t-=-= TRANSFERÊNCIAS =-=-\n" +
+        System.out.print("\n-=-= TRANSFERÊNCIAS =-=-\n" +
                 "1 - ADICIONAR TRANSFERÊNCIA\n" +
                 "2 - EDTIAR TRANSFERÊNCIA\n" +
                 "3 - REMOVER TRANSFERÊNCIA\n" +
                 "4 - LISTAR TRANSFERÊNCIAS\n" +
-                "0 - VOLTAR\n" +
-                "OPÇÃO: ");
+                "0 - VOLTAR\n");
+        System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;

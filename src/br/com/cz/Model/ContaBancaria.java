@@ -1,6 +1,5 @@
 package br.com.cz.Model;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class ContaBancaria {
@@ -32,8 +31,9 @@ public class ContaBancaria {
         return saldoConta;
     }
 
-    public void setSaldoConta(double saldoConta) {
+    public double setSaldoConta(double saldoConta) {
         this.saldoConta = saldoConta;
+        return saldoConta;
     }
 
     public UUID getIdUtilizador() {
