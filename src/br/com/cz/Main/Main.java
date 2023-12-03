@@ -7,6 +7,7 @@ import br.com.cz.Model.*;
 import br.com.cz.Util.SistemaAplicacao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -277,10 +278,58 @@ public class Main {
                                             contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(diferencaValor + contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta());
                                         }
                                         else if (op.equals("3")) {
+                                            System.out.print("\nDigite o id da transação que deseja remover: ");
+                                            String idTransacao = ler.nextLine();
+
+                                            Despesa despesaParaRemover = despesaController.buscarDespesa(idTransacao);
+                                            boolean rmvDespesa = despesaController.removerDespesa(despesaParaRemover);
+
+                                            if (rmvDespesa) {
+                                                System.out.println("=-=- DESPESA REMOVIDA -=-=");
+                                                ContaBancaria cnt = contaBancariaController.buscarConta(despesaParaRemover.getInstituicao());
+                                                double saldoAtual = cnt.getSaldoConta();
+                                                cnt.setSaldoConta(saldoAtual + despesaParaRemover.getValor());
+                                            } else {
+                                                System.out.println("=-=- NÃO FOI POSSÍVEL REMOVER A DESPESA -=-=");
+                                            }
+
 
                                         }
                                         else if (op.equals("4")) {
+                                            System.out.print("\nDeseja especificar de qual conta bancária verá as despesas? (y/n): ");
+                                            String resposta = ler.nextLine();
+                                            Utilizador<? extends Pessoa> utlDespesa = autenticacaoController.buscarUtilizador(nomeUsuario);
 
+                                            if (!resposta.toLowerCase().equals("y")) {
+                                                List<Despesa> listDespesas = despesaController.listarDespesa(utlDespesa.getIdUtilizador());
+
+                                                for (Despesa dsp : listDespesas) {
+                                                    if (dsp.getIdUtilizador().equals(utlDespesa.getIdUtilizador())) {
+                                                        System.out.println("\nDESPESA " + dsp.getIdTransacao() + "\n" +
+                                                                "Instituição: " + dsp.getInstituicao() + "\n" +
+                                                                "Valor" + dsp.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n" +
+                                                                "Foi pago? " + dsp.isFoiPago() + "\n"
+                                                                );
+                                                    }
+                                                }
+                                            } else {
+                                                System.out.print("Digite o nome da insituição: ");
+                                                String nomeInstituicao = ler.nextLine();
+                                                List<Despesa> listDespesas = despesaController.buscarDespesas(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), utlDespesa.getIdUtilizador());
+
+                                                for (Despesa dsp : listDespesas) {
+                                                    if (dsp.getIdUtilizador().equals(utlDespesa.getIdUtilizador())) {
+                                                        System.out.println("\nDESPESA CONTA: " + dsp.getIdConta() +
+                                                                "Id da Transação: "+ dsp.getIdTransacao() + "\n" +
+                                                                "Instituição: " + dsp.getInstituicao() + "\n" +
+                                                                "Valor" + dsp.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n" +
+                                                                "Foi pago? " + dsp.isFoiPago() + "\n"
+                                                        );
+                                                    }
+                                                }
+                                            }
                                         } else if (op.equals("0")) {
                                             System.out.println("=-=- SAINDO MENU DESPESA");
                                             break;
@@ -381,10 +430,57 @@ public class Main {
                                             contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(diferencaValor + contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta());
                                         }
                                         else if (op.equals("3")) {
+                                            System.out.print("\nDigite o id da transação que deseja remover: ");
+                                            String idTransacao = ler.nextLine();
+
+                                            Renda rendaParaRemover = rendaController.buscarRenda(idTransacao);
+                                            boolean rmvRenda = rendaController.removerRenda(rendaParaRemover);
+
+                                            if (rmvRenda) {
+                                                System.out.println("=-=- RENDA REMOVIDA -=-=");
+                                                ContaBancaria cnt = contaBancariaController.buscarConta(rendaParaRemover.getInstituicao());
+                                                double saldoAtual = cnt.getSaldoConta();
+                                                cnt.setSaldoConta(saldoAtual - rendaParaRemover.getValor());
+                                            } else {
+                                                System.out.println("=-=- NÃO FOI POSSÍVEL REMOVER A RENDA -=-=");
+                                            }
 
                                         }
                                         else if (op.equals("4")) {
+                                            System.out.print("\nDeseja especificar de qual conta bancária verá as rendas? (y/n): ");
+                                            String resposta = ler.nextLine();
+                                            Utilizador<? extends Pessoa> utlRenda = autenticacaoController.buscarUtilizador(nomeUsuario);
 
+                                            if (!resposta.toLowerCase().equals("y")) {
+                                                List<Renda> listRendas = rendaController.listarRendas(utlRenda.getIdUtilizador());
+
+                                                for (Renda rnd : listRendas) {
+                                                    if (rnd.getIdUtilizador().equals(utlRenda.getIdUtilizador())) {
+                                                        System.out.println("\nDESPESA " + rnd.getIdTransacao() + "\n" +
+                                                                "Instituição: " + rnd.getInstituicao() + "\n" +
+                                                                "Valor" + rnd.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n" +
+                                                                "Foi pago? " + rnd.isFoiRecebido() + "\n"
+                                                        );
+                                                    }
+                                                }
+                                            } else {
+                                                System.out.print("Digite o nome da insituição: ");
+                                                String nomeInstituicao = ler.nextLine();
+                                                List<Renda> listRendas = rendaController.buscarRenda(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), utlRenda.getIdUtilizador());
+
+                                                for (Renda rnd : listRendas) {
+                                                    if (rnd.getIdUtilizador().equals(utlRenda.getIdUtilizador())) {
+                                                        System.out.println("\nDESPESA CONTA: " + rnd.getIdConta() +
+                                                                "Id da Transação: "+ rnd.getIdTransacao() + "\n" +
+                                                                "Instituição: " + rnd.getInstituicao() + "\n" +
+                                                                "Valor" + rnd.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n" +
+                                                                "Foi pago? " + rnd.isFoiRecebido() + "\n"
+                                                        );
+                                                    }
+                                                }
+                                            }
                                         }
                                         else if (op.equals("0")) {
                                             System.out.println("=-=- SAINDO MENU RENDA");

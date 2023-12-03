@@ -12,6 +12,6 @@ public interface IContaBancariaController {
     boolean atualizarConta(String nomeInstituicao, ContaBancaria novaContaBancaria);
     boolean removerConta(ContaBancaria contaBancaria);
     boolean removerConta(String nomeInstituicao);
-    ContaBancaria buscarConta(String nomeInstituicao);
+    ContaBancaria buscarConta(String identificador);
     List<ContaBancaria> listarContas(UUID idDoUtilizador);
 }

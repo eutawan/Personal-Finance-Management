@@ -14,7 +14,7 @@ public interface IDespesaController {
 
     Despesa buscarDespesa(String idDaTransacao);
 
-    List<Despesa> buscarDespesas(UUID idDaConta, String idUtilizador);
+    List<Despesa> buscarDespesas(UUID idDaConta, UUID idUtilizador);
 
     boolean editarDespesa(String idDaTransacao, Despesa despesaNova);
 

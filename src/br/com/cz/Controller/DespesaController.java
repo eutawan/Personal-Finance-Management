@@ -75,7 +75,7 @@ public class DespesaController implements IDespesaController {
     }
 
     @Override
-    public List<Despesa> buscarDespesas(UUID idDaConta, String idUtilizador) {
+    public List<Despesa> buscarDespesas(UUID idDaConta, UUID idUtilizador) {
         try{
             List<Despesa> despesas = this.dao.listar();
             List<Despesa> despesasUtlEsp = new ArrayList<>();
