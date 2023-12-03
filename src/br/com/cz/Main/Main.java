@@ -1,5 +1,6 @@
 package br.com.cz.Main;
 import br.com.cz.Controller.*;
+import br.com.cz.Exception.LimiteDespesaException;
 import br.com.cz.Exception.NaoPagoException;
 import br.com.cz.Exception.OptionException;
 import br.com.cz.Model.*;
@@ -108,7 +109,7 @@ public class Main {
                                 op = sistema.menuConta();
                                 if (op.equals("1")) {
                                     System.out.println("-=-= CADASTRANDO CONTA BANCÁRIA =-=-");
-                                    System.out.print("Digite o nome da instituição: ");
+                                    System.out.print("\nDigite o nome da instituição: ");
                                     String instituicao = ler.nextLine();
                                     System.out.print("Digite o saldo da conta: ");
                                     double saldoConta = ler.nextDouble();
@@ -126,13 +127,13 @@ public class Main {
                                     ArrayList<ContaBancaria> contasBancarias = contaBancariaController.listarContas(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador());
 
                                     for (ContaBancaria contasBancaria : contasBancarias) {
-                                        System.out.println("Instituição: " + contasBancaria.getInstituicao());
+                                        System.out.println("\nInstituição: " + contasBancaria.getInstituicao());
                                         System.out.printf("Saldo da Conta: %.2f", contasBancaria.getSaldoConta());
                                     }
 
                                 } else if (op.equals("3")) {
                                     System.out.println("=-=- REMOVER CONTA -=-=");
-                                    System.out.print("Digite o nome da Instituíção que deseja remover: ");
+                                    System.out.print("\nDigite o nome da Instituíção que deseja remover: ");
                                     String instuicao = ler.nextLine();
 
                                     boolean removerConta = contaBancariaController.removerConta(instuicao);
@@ -144,7 +145,7 @@ public class Main {
                                     }
                                 } else if (op.equals("4")) {
                                     System.out.println("=-=- ATUALIZAR CONTA -=-=");
-                                    System.out.println("Digite o nome da Insittuição que deseja atualizar: ");
+                                    System.out.println("\nDigite o nome da Insittuição que deseja atualizar: ");
                                     String instituicaoAtual = ler.nextLine();
 
                                     System.out.print("Deseja atualizar apenas o saldo? (Y/N): ");
@@ -207,20 +208,78 @@ public class Main {
                                             try {
                                                 if (foiPago) {
                                                     despesaController.adicionarDespesa(despesa);
-                                                    contaBancaria.setSaldoConta(contaBancaria.getSaldoConta() - valor);
+                                                    double saldoAtual = contaBancaria.getSaldoConta();
+
+                                                    if (saldoAtual < valor) {
+                                                        throw new LimiteDespesaException();
+                                                    }
+
+                                                    contaBancaria.setSaldoConta(saldoAtual - valor);
                                                     System.out.println("=-=- DESPESA CRIADA COM SUCESSO");
                                                 } else {
                                                     throw new NaoPagoException();
                                                 }
-                                            } catch (NaoPagoException e) {
-                                                System.out.println(e.getMessage());
+                                            } catch (NaoPagoException | LimiteDespesaException e) {
+                                                System.err.println(e.getMessage());
                                             }
 
-                                        } else if (op.equals("2")) {
+                                        }
+                                        else if (op.equals("2")) {
+                                            System.out.print("\ndigite o id da transação que deseja alterar: ");
+                                            String idTransacao = ler.nextLine();
 
-                                        } else if (op.equals("3")) {
+                                            String resposta;
+                                            double valor;
+                                            double diferencaValor = 0;
+                                            String nomeInstituicao;
+                                            String metodoPagamento;
+                                            boolean foiPago;
+                                            UUID idConta;
 
-                                        } else if (op.equals("4")) {
+                                            System.out.print("Deseja mudar o valor? (y/n): ");
+                                            resposta = ler.nextLine();
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("Digite o novo valor: ");
+                                                valor = ler.nextDouble();
+                                                diferencaValor = valor - despesaController.buscarDespesa(idTransacao).getValor();
+                                            } else {
+                                                valor = despesaController.buscarDespesa(idTransacao).getValor();
+                                            }
+                                            System.out.print("Deseja mudar o nome da instituição? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("Digite o novo nome da instituição: ");
+                                                nomeInstituicao = ler.nextLine();
+                                                idConta = contaBancariaController.buscarConta(nomeInstituicao).getIdConta();
+                                            } else {
+                                                nomeInstituicao = despesaController.buscarDespesa(idTransacao).getInstituicao();
+                                                idConta = despesaController.buscarDespesa(idTransacao).getIdConta();
+                                            }
+                                            System.out.print("Deseja mudar o metodoDePagamento? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("metodo de pagamento novo: ");
+                                                metodoPagamento = ler.nextLine();
+                                            } else {
+                                                metodoPagamento = despesaController.buscarDespesa(idTransacao).getMetodoDePagamento();
+                                            }
+                                            System.out.print("Deseja mudar se a conta foi paga ou não? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                if (despesaController.buscarDespesa(idTransacao).isFoiPago()) {
+                                                    foiPago = false;
+                                                } else {
+                                                    foiPago = true;
+                                                }
+                                            } else {
+                                                foiPago = despesaController.buscarDespesa(idTransacao).isFoiPago();
+                                            }
+
+                                            Despesa newDespesa = new Despesa(nomeInstituicao, valor, metodoPagamento, idConta, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(), foiPago);
+                                            despesaController.editarDespesa(idTransacao, newDespesa);
+                                            contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(diferencaValor + contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta());
+                                        }
+                                        else if (op.equals("3")) {
+
+                                        }
+                                        else if (op.equals("4")) {
 
                                         } else if (op.equals("0")) {
                                             System.out.println("=-=- SAINDO MENU DESPESA");
@@ -234,14 +293,100 @@ public class Main {
                                     while (true) {
                                         op = sistema.menuRenda();
                                         if (op.equals("1")) {
+                                            System.out.print("\nDigite o valor da Renda: ");
+                                            double valor = ler.nextDouble();
+                                            ler.nextLine();
+                                            System.out.print("Digite o nome da instituição: ");
+                                            String nomeInstituicao = ler.nextLine();
+                                            System.out.print("Digite o método de pagamento: ");
+                                            String metodoPagamento = ler.nextLine();
+                                            System.out.print("Foi recebido? (y/n): ");
+                                            String isFoiRecebido = ler.next();
+                                            boolean foiRecebido;
+                                            if (isFoiRecebido.toLowerCase().equals("y")) {
+                                                foiRecebido = true;
+                                            } else {
+                                                foiRecebido = false;
+                                            }
+                                            ContaBancaria contaBancaria = contaBancariaController.buscarConta(nomeInstituicao);
+                                            UUID idContaBancaria = contaBancaria.getIdUtilizador();
+                                            UUID idUtilizador = autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador();
+                                            Renda renda = new Renda(nomeInstituicao, valor, metodoPagamento,  idContaBancaria, idUtilizador, foiRecebido);
 
-                                        } else if (op.equals("2")) {
+                                            try {
+                                                if (foiRecebido) {
+                                                    rendaController.adicionarRenda(renda);
+                                                    double saldoAtual = contaBancaria.getSaldoConta();
 
-                                        } else if (op.equals("3")) {
+                                                    contaBancaria.setSaldoConta(saldoAtual + valor);
+                                                    System.out.println("=-=- RENDA CRIADA COM SUCESSO");
+                                                } else {
+                                                    throw new NaoPagoException();
+                                                }
+                                            } catch (NaoPagoException e) {
+                                                System.err.println(e.getMessage());
+                                            }
 
-                                        } else if (op.equals("4")) {
+                                        }
+                                        else if (op.equals("2")) {
+                                            System.out.print("\ndigite o id da transação que deseja alterar: ");
+                                            String idTransacao = ler.nextLine();
 
-                                        } else if (op.equals("0")) {
+                                            String resposta;
+                                            double valor;
+                                            double diferencaValor = 0;
+                                            String nomeInstituicao;
+                                            String metodoPagamento;
+                                            boolean foiRecebido;
+                                            UUID idConta;
+
+                                            System.out.print("Deseja mudar o valor? (y/n): ");
+                                            resposta = ler.nextLine();
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("Digite o novo valor: ");
+                                                valor = ler.nextDouble();
+                                                diferencaValor = valor - rendaController.buscarRenda(idTransacao).getValor();
+                                            } else {
+                                                valor = rendaController.buscarRenda(idTransacao).getValor();
+                                            }
+                                            System.out.print("Deseja mudar o nome da instituição? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("Digite o novo nome da instituição: ");
+                                                nomeInstituicao = ler.nextLine();
+                                                idConta = contaBancariaController.buscarConta(nomeInstituicao).getIdConta();
+                                            } else {
+                                                nomeInstituicao = rendaController.buscarRenda(idTransacao).getInstituicao();
+                                                idConta = rendaController.buscarRenda(idTransacao).getIdConta();
+                                            }
+                                            System.out.print("Deseja mudar o metodoDePagamento? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                System.out.print("metodo de pagamento novo: ");
+                                                metodoPagamento = ler.nextLine();
+                                            } else {
+                                                metodoPagamento = rendaController.buscarRenda(idTransacao).getMetodoDePagamento();
+                                            }
+                                            System.out.print("Deseja mudar se a renda foi recebida ou não? (y/n): ");
+                                            if (resposta.toLowerCase().equals("y")) {
+                                                if (rendaController.buscarRenda(idTransacao).isFoiRecebido()) {
+                                                    foiRecebido = false;
+                                                } else {
+                                                    foiRecebido = true;
+                                                }
+                                            } else {
+                                                foiRecebido = rendaController.buscarRenda(idTransacao).isFoiRecebido();
+                                            }
+
+                                            Renda newRenda = new Renda(nomeInstituicao, valor, metodoPagamento, idConta, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(), foiRecebido);
+                                            rendaController.editarRenda(idTransacao, newRenda);
+                                            contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(diferencaValor + contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta());
+                                        }
+                                        else if (op.equals("3")) {
+
+                                        }
+                                        else if (op.equals("4")) {
+
+                                        }
+                                        else if (op.equals("0")) {
                                             System.out.println("=-=- SAINDO MENU RENDA");
                                             break;
 
