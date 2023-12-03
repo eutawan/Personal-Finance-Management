@@ -494,6 +494,19 @@ public class Main {
                                     while (true) {
                                         op = sistema.menuTransfer();
                                         if (op.equals("1")) {
+                                            System.out.println("Digite o valor da transferência: ");
+                                            double valor = ler.nextDouble();
+                                            ler.nextLine();
+                                            System.out.println("Digite o nome da instituição: ");
+                                            String nomeInstituicao = ler.nextLine();
+                                            System.out.println("Digite o método de pagamento: ");
+                                            String metodoPagamento = ler.nextLine();
+
+                                            Transferencia transferencia = transferController.buscarTransfer(nomeInstituicao);
+                                            UUID idContaBancaria = transferencia.getIdConta();
+                                            UUID idUtilizador = autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador();
+
+
 
                                         } else if (op.equals("2")) {
 
@@ -502,7 +515,7 @@ public class Main {
                                         } else if (op.equals("4")) {
 
                                         } else if (op.equals("0")) {
-                                            System.out.println("=-=- SAINDO MENU TRANSFERENCIA");
+                                            System.out.println("=-=- SAINDO MENU TRANSFERENCIA -=-=");
                                             break;
 
                                         } else {
