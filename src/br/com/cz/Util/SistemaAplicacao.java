@@ -95,7 +95,7 @@ public class SistemaAplicacao {
     public String menuTransfer() {
         System.out.print("\n-=-= TRANSFERÊNCIAS =-=-\n" +
                 "1 - ADICIONAR TRANSFERÊNCIA\n" +
-                "2 - EDTIAR TRANSFERÊNCIA\n" +
+                "2 - EDITAR TRANSFERÊNCIA\n" +
                 "3 - REMOVER TRANSFERÊNCIA\n" +
                 "4 - LISTAR TRANSFERÊNCIAS\n" +
                 "0 - VOLTAR\n");

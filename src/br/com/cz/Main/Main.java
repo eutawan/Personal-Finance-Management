@@ -7,6 +7,7 @@ import br.com.cz.Exception.SaldoInsuficienteException;
 import br.com.cz.Model.*;
 import br.com.cz.Util.SistemaAplicacao;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -532,10 +533,81 @@ public class Main {
                                                 System.out.println("=-=- TRANSFERÊNCIA NÃO EFETUADA. -=-=");
                                             }
 
-
-
-
                                         } else if (op.equals("2")) {
+                                            System.out.println("Digite o ID de transação que deseja editar: ");
+                                            String idTransacao = ler.nextLine();
+                                            String nomeInstituicao;
+                                            String metodoPagamento;
+                                            String nomeInstituicaoDestino;
+                                            double valor;
+                                            double diferencaValor = 0;
+                                            UUID idConta;
+                                            UUID idContaDestino;
+                                            System.out.println("Deseja alterar o valor (y/n)?");
+                                             String resposta = ler.nextLine();
+                                             if (resposta.toLowerCase().equals("y")){
+                                                 System.out.println("Digite o novo valor: ");
+                                                 valor = ler.nextDouble();
+                                                 System.out.println("=-=- VALOR ALTERADO COM SUCESSO. -=-=");
+                                                 diferencaValor = valor - transferController.buscarTransfer(idTransacao).getValor();
+                                             } else {
+                                                 System.out.println("=-=- VALOR NÃO ALTERADO. -=-=");
+                                                 valor = transferController.buscarTransfer(idTransacao).getValor();
+                                             }
+                                            System.out.println("Deseja alterar o método de pagamento (y/n)? ");
+                                             resposta = ler.nextLine();
+                                             if (resposta.toLowerCase().equals("y")){
+                                                 System.out.println("Digite o novo método de pagamento: ");
+                                                 metodoPagamento = ler.nextLine();
+                                             } else {
+                                                 System.out.println("=-=- MÉTODO DE PAGAMENTO NÃO ALTERADO. -=-=");
+                                                 metodoPagamento = transferController.buscarTransfer(idTransacao).getMetodoDePagamento();
+                                             }
+                                            System.out.println("Deseja alterar a instituição (y/n)?");
+                                             resposta = ler.nextLine();
+                                             if (resposta.toLowerCase().equals("y")){
+                                                 System.out.println("Digite o novo nome da instituição: ");
+                                                 nomeInstituicao = ler.nextLine();
+                                                 idConta = contaBancariaController.buscarConta(nomeInstituicao).getIdConta();
+                                                 System.out.println("=-=- NOME ALTERADO COM SUCESSO. -=-=");
+                                             } else {
+                                                 nomeInstituicao = transferController.buscarTransfer(idTransacao).getInstituicao();
+                                                 idConta = transferController.buscarTransfer(idTransacao).getIdConta();
+                                             }
+                                            System.out.println("Deseja alterar a instituição de destino (y/n)?");
+                                             resposta = ler.nextLine();
+                                             if (resposta.toLowerCase().equals("y")){
+                                                 System.out.println("Digite o novo nome da instituição de destino: ");
+                                                 nomeInstituicaoDestino = ler.nextLine();
+                                                 idContaDestino = contaBancariaController.buscarConta(nomeInstituicaoDestino).getIdConta();
+                                                 System.out.println("=-=- NOME ALTERADO COM SUCESSO. -=-=");
+                                             } else {
+                                                 System.out.println("=-=- NOME DE INSTITUIÇÃO DE DESTINO NÃO ALTERADA. -=-=");
+                                                 nomeInstituicaoDestino = transferController.buscarTransfer(idTransacao).getInstituicaoDestino();
+                                                 idContaDestino = transferController.buscarTransfer(idTransacao).getIdContaDestino();
+                                             }
+
+                                            ContaBancaria contaBancaria = contaBancariaController.buscarConta(nomeInstituicao);
+                                            ContaBancaria contaBancariaDestino = contaBancariaController.buscarConta(nomeInstituicaoDestino);
+
+                                            try {
+                                                if (contaBancaria.getSaldoConta() < valor){
+                                                    throw new SaldoInsuficienteException();
+                                                }
+                                            } catch (SaldoInsuficienteException e){
+                                                System.err.println(e.getMessage());
+                                            }
+                                             Transferencia transferencia = new Transferencia(nomeInstituicao, valor, metodoPagamento,
+                                                     idConta, autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(),
+                                                     nomeInstituicaoDestino, idContaDestino);
+                                              boolean edit = transferController.editarTransfer(idTransacao, transferencia);
+                                              if (edit){
+                                                  contaBancaria.setSaldoConta(diferencaValor + contaBancaria.getSaldoConta());
+                                                  contaBancariaDestino.setSaldoConta(diferencaValor - contaBancariaDestino.getSaldoConta());
+                                                  System.out.println("=-=- EDIÇÃO CONCLUÍDA COM SUCESSO. -=-=");
+                                              } else {
+                                                  System.out.println("=-=- EDIÇÃO NÃO CONCLUÍDA. -=-=");
+                                              }
 
                                         } else if (op.equals("3")) {
 

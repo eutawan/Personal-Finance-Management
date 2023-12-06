@@ -14,4 +14,20 @@ public class Transferencia extends TipoTransacao{
         this.instituicaoDestino = instituicaoDestino;
         this.idContaDestino = idContaDestino;
     }
+
+    public String getInstituicaoDestino() {
+        return instituicaoDestino;
+    }
+
+    public void setInstituicaoDestino(String instituicaoDestino) {
+        this.instituicaoDestino = instituicaoDestino;
+    }
+
+    public UUID getIdContaDestino() {
+        return idContaDestino;
+    }
+
+    public void setIdContaDestino(UUID idContaDestino) {
+        this.idContaDestino = idContaDestino;
+    }
 }
