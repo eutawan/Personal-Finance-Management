@@ -3,6 +3,7 @@ import br.com.cz.Controller.*;
 import br.com.cz.Exception.LimiteDespesaException;
 import br.com.cz.Exception.NaoPagoException;
 import br.com.cz.Exception.OptionException;
+import br.com.cz.Exception.SaldoInsuficienteException;
 import br.com.cz.Model.*;
 import br.com.cz.Util.SistemaAplicacao;
 
@@ -497,14 +498,40 @@ public class Main {
                                             System.out.println("Digite o valor da transferência: ");
                                             double valor = ler.nextDouble();
                                             ler.nextLine();
-                                            System.out.println("Digite o nome da instituição: ");
+                                            System.out.println("Digite o nome da sua instituição: ");
                                             String nomeInstituicao = ler.nextLine();
+                                            System.out.println("Digite o nome da instituição de destino: ");
+                                            String nomeInstituicaoDestino = ler.nextLine();
                                             System.out.println("Digite o método de pagamento: ");
                                             String metodoPagamento = ler.nextLine();
 
-                                            Transferencia transferencia = transferController.buscarTransfer(nomeInstituicao);
-                                            UUID idContaBancaria = transferencia.getIdConta();
+                                            UUID idConta = contaBancariaController.buscarConta(nomeInstituicao).getIdConta();
                                             UUID idUtilizador = autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador();
+                                            UUID idContaDestino = contaBancariaController.buscarConta(nomeInstituicaoDestino).getIdConta();
+
+                                            ContaBancaria contaBancaria = contaBancariaController.buscarConta(nomeInstituicao);
+                                            ContaBancaria contaBancariaDestino = contaBancariaController.buscarConta(nomeInstituicaoDestino);
+
+                                            try {
+                                                if (contaBancaria.getSaldoConta() < valor){
+                                                    throw new SaldoInsuficienteException();
+                                                }
+                                            } catch (SaldoInsuficienteException e){
+                                                System.err.println(e.getMessage());
+                                            }
+
+                                            Transferencia transferencia = new Transferencia(nomeInstituicao, valor, metodoPagamento, idConta, idUtilizador,
+                                                    nomeInstituicaoDestino, idContaDestino);
+                                             boolean transf = transferController.adicionarTransfer(transferencia);
+
+                                            if (transf){
+                                                contaBancaria.setSaldoConta(contaBancaria.getSaldoConta() - valor);
+                                                contaBancariaDestino.setSaldoConta(contaBancariaDestino.getSaldoConta() + valor);
+                                                System.out.println("=-=- TRANSFERÊNCIA EFETUADA. -=-=");
+                                            } else {
+                                                System.out.println("=-=- TRANSFERÊNCIA NÃO EFETUADA. -=-=");
+                                            }
+
 
 
 
