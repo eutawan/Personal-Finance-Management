@@ -409,7 +409,7 @@ public class Main {
                                                 nomeInstituicao = rendaController.buscarRenda(idTransacao).getInstituicao();
                                                 idConta = rendaController.buscarRenda(idTransacao).getIdConta();
                                             }
-                                            System.out.print("Deseja mudar o metodoDePagamento? (y/n): ");
+                                            System.out.print("Deseja mudar o método de pagamento? (y/n): ");
                                             if (resposta.toLowerCase().equals("y")) {
                                                 System.out.print("metodo de pagamento novo: ");
                                                 metodoPagamento = ler.nextLine();
@@ -469,7 +469,8 @@ public class Main {
                                             } else {
                                                 System.out.print("Digite o nome da insituição: ");
                                                 String nomeInstituicao = ler.nextLine();
-                                                List<Renda> listRendas = rendaController.buscarRenda(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), utlRenda.getIdUtilizador());
+                                                List<Renda> listRendas = rendaController.buscarRenda(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(),
+                                                        utlRenda.getIdUtilizador());
 
                                                 for (Renda rnd : listRendas) {
                                                     if (rnd.getIdUtilizador().equals(utlRenda.getIdUtilizador())) {
@@ -610,8 +611,64 @@ public class Main {
                                               }
 
                                         } else if (op.equals("3")) {
+                                            System.out.println("Digite o id da transação que deseja remover: ");
+                                            String id = ler.nextLine();
+
+                                            Transferencia transferenciaRemover = transferController.buscarTransfer(id);
+                                            boolean removerTransf = transferController.removerTransfer(transferenciaRemover);
+
+                                            if (removerTransf){
+                                                System.out.println("=-=- TRANSFERÊNCIA REMOVIDA. -=-=");
+                                                ContaBancaria cnt = contaBancariaController.buscarConta(transferenciaRemover.getInstituicao());
+                                                ContaBancaria cntDestino = contaBancariaController.buscarConta(transferenciaRemover.getInstituicao());
+
+                                                double saldoAtual = cnt.getSaldoConta();
+                                                double saldoAtualDestino = cntDestino.getSaldoConta();
+
+                                                cnt.setSaldoConta(saldoAtual + transferenciaRemover.getValor());
+                                                cntDestino.setSaldoConta(saldoAtualDestino - transferenciaRemover.getValor());
+
+                                            } else {
+                                                System.out.println("=-=- TRANSFERÊNCIA NÃO REMOVIDA. -=-=");
+                                            }
 
                                         } else if (op.equals("4")) {
+                                            System.out.println("Deseja especificar de qual conta verá as transferências (y/n)? ");
+                                            String resp = ler.nextLine();
+
+                                            Utilizador<? extends Pessoa> utlTransf = autenticacaoController.buscarUtilizador(nomeUsuario);
+                                            if (!resp.toLowerCase().equals("y")){
+                                                List<Transferencia> transferenciaList = transferController.listarTransfers(utlTransf.getIdUtilizador());
+                                                for (Transferencia trn : transferenciaList){
+                                                    if (trn.getIdUtilizador().equals(utlTransf.getIdUtilizador())){
+
+                                                        System.out.println("\nDESPESA " + trn.getIdTransacao() + "\n" +
+                                                                "Instituição: " + trn.getInstituicao() + "\n" +
+                                                                "Instituição de destino: " + trn.getInstituicaoDestino() + "\n" +
+                                                                "Valor" + trn.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n"
+                                                        );
+                                                    }
+                                                }
+                                            } else {
+                                                System.out.println("Digite o nome da instituição: ");
+                                                String instituicao = ler.nextLine();
+                                                List<Transferencia> listTransferencia = transferController.buscarTransfer(contaBancariaController.buscarConta(instituicao).getIdConta(),
+                                                        utlTransf.getIdUtilizador());
+                                                for (Transferencia transferencia : listTransferencia){
+                                                    if (transferencia.getIdUtilizador().equals(utlTransf.getIdUtilizador())){
+                                                        System.out.println("\nDESPESA CONTA: " + transferencia.getIdConta() +
+                                                                "Id da Transação: "+ transferencia.getIdTransacao() + "\n" +
+                                                                "Instituição: " + transferencia.getInstituicao() + "\n" +
+                                                                "Instituição de destino: " + transferencia.getInstituicaoDestino() + "\n" +
+                                                                "Valor" + transferencia.getValor() + "\n" +
+                                                                "Método de Pagamento" + "\n"
+
+                                                        );
+                                                    }
+                                                }
+                                            }
+
 
                                         } else if (op.equals("0")) {
                                             System.out.println("=-=- SAINDO MENU TRANSFERENCIA -=-=");
