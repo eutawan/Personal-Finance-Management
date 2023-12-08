@@ -6,8 +6,6 @@ import br.com.cz.Exception.OptionException;
 import br.com.cz.Exception.SaldoInsuficienteException;
 import br.com.cz.Model.*;
 import br.com.cz.Util.SistemaAplicacao;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

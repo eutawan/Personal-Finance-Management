@@ -71,7 +71,7 @@ public class SistemaAplicacao {
     public String menuDespesa() {
         System.out.print("\n-=-= DESPESAS =-=-\n" +
                 "1 - ADICIONAR DESPESA\n" +
-                "2 - EDTIAR DESPESA\n" +
+                "2 - EDITAR DESPESA\n" +
                 "3 - REMOVER DESPESA\n" +
                 "4 - LISTAR DESPESAS\n" +
                 "0 - VOLTAR\n");
@@ -83,7 +83,7 @@ public class SistemaAplicacao {
     public String menuRenda() {
         System.out.print("\n-=-= RENDAS =-=-\n" +
                 "1 - ADICIONAR RENDA\n" +
-                "2 - EDTIAR RENDA\n" +
+                "2 - EDITAR RENDA\n" +
                 "3 - REMOVER RENDA\n" +
                 "4 - LISTAR RENDAS\n" +
                 "0 - VOLTAR\n");
