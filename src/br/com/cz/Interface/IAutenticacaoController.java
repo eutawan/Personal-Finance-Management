@@ -1,11 +1,8 @@
 package br.com.cz.Interface;
 
 
-import br.com.cz.Model.Pessoa;
-import br.com.cz.Model.Utilizador;
-
-import java.util.ArrayList;
-import java.util.UUID;
+import br.com.cz.Model.PackageAutenticacao.Pessoa;
+import br.com.cz.Model.PackageAutenticacao.Utilizador;
 
 public interface IAutenticacaoController {
 

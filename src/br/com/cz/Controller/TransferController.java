@@ -5,9 +5,8 @@ import br.com.cz.Exception.IdNotFoundException;
 import br.com.cz.Exception.TransferException;
 import br.com.cz.Interface.IDao;
 import br.com.cz.Interface.ITransferController;
-import br.com.cz.Model.Transferencia;
+import br.com.cz.Model.PackageTransacao.Transferencia;
 
-import javax.imageio.ImageTranscoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

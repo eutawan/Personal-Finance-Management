@@ -1,8 +1,8 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageTransacao;
 
 import java.util.UUID;
 
-public class Renda extends TipoTransacao{
+public class Renda extends TipoTransacao {
     private boolean foiRecebido;
 
     public Renda(String instituicao, double valor, String metodoDePagamento, UUID idConta, UUID idUtilizador, boolean foiRecebido) {

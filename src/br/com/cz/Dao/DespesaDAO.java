@@ -1,6 +1,6 @@
 package br.com.cz.Dao;
 import br.com.cz.Interface.IDao;
-import br.com.cz.Model.Despesa;
+import br.com.cz.Model.PackageTransacao.Despesa;
 import java.util.ArrayList;
 import java.util.List;
 

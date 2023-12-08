@@ -7,9 +7,8 @@ import br.com.cz.Exception.IdadeInvalidaException;
 import br.com.cz.Exception.NaoPagoException;
 import br.com.cz.Interface.IDao;
 import br.com.cz.Interface.IDespesaController;
-import br.com.cz.Model.Despesa;
+import br.com.cz.Model.PackageTransacao.Despesa;
 
-import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

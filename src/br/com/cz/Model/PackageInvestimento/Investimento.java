@@ -1,20 +1,22 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageInvestimento;
+
 import java.util.UUID;
 
 public class Investimento<T extends TipoInvestimento> {
-     private UUID idInvestimento;
+     private String idInvestimento;
     private UUID idUtilizador;
     private UUID idConta;
     private T investimento;
 
-    public Investimento(UUID idInvestimento, UUID idUtilizador, UUID idConta, T investimento){
-        this.idInvestimento = idInvestimento;
+
+    public Investimento(UUID idUtilizador, UUID idConta, T investimento){
+        this.idInvestimento = UUID.randomUUID().toString();
         this.idUtilizador = idUtilizador;
         this.idConta = idConta;
         this.investimento = investimento;
     }
 
-    public UUID getIdInvestimento() {
+    public String getIdInvestimento() {
         return idInvestimento;
     }
 

@@ -1,6 +1,6 @@
 package br.com.cz.Interface;
 
-import br.com.cz.Model.Renda;
+import br.com.cz.Model.PackageTransacao.Renda;
 
 import java.util.List;
 import java.util.UUID;

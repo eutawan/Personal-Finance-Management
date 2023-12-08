@@ -1,6 +1,6 @@
 package br.com.cz.Interface;
-import br.com.cz.Model.Pessoa;
-import br.com.cz.Model.Utilizador;
+import br.com.cz.Model.PackageAutenticacao.Pessoa;
+import br.com.cz.Model.PackageAutenticacao.Utilizador;
 
 public interface IInvestimentoController {
     boolean adicionarInvestimento(Utilizador<? extends Pessoa> utl);

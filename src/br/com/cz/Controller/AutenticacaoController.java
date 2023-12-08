@@ -6,10 +6,8 @@ import br.com.cz.Exception.SenhaIncorretaException;
 import br.com.cz.Exception.UtilizadorException;
 import br.com.cz.Interface.IAutenticacaoController;
 import br.com.cz.Interface.IDao;
-import br.com.cz.Model.Pessoa;
-import br.com.cz.Model.Utilizador;
-
-import java.util.Scanner;
+import br.com.cz.Model.PackageAutenticacao.Pessoa;
+import br.com.cz.Model.PackageAutenticacao.Utilizador;
 
 public class AutenticacaoController implements IAutenticacaoController {
     private IDao<Utilizador<? extends Pessoa>> dao;

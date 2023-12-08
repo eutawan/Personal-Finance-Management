@@ -1,4 +1,4 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageAutenticacao;
 
 import java.util.UUID;
 

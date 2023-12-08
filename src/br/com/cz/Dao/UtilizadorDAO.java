@@ -1,13 +1,11 @@
 package br.com.cz.Dao;
 
-import br.com.cz.Exception.UtilizadorException;
 import br.com.cz.Interface.IDao;
-import br.com.cz.Model.Pessoa;
-import br.com.cz.Model.Utilizador;
+import br.com.cz.Model.PackageAutenticacao.Pessoa;
+import br.com.cz.Model.PackageAutenticacao.Utilizador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class UtilizadorDAO implements IDao<Utilizador<? extends Pessoa>> {
     private ArrayList<Utilizador<? extends Pessoa>> utilizadores;

@@ -1,4 +1,4 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageTransacao;
 
 import java.time.LocalDate;
 import java.util.UUID;

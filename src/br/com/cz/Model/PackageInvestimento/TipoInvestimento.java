@@ -1,4 +1,4 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageInvestimento;
 
 import java.time.LocalDate;
 

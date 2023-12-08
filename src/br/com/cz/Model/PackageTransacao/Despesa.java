@@ -1,8 +1,8 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageTransacao;
 
 import java.util.UUID;
 
-public class Despesa extends TipoTransacao{
+public class Despesa extends TipoTransacao {
     private boolean foiPago;
 
     public Despesa(String instituicao, double valor, String metodoDePagamento, UUID idConta, UUID idUtilizador, boolean foiPago) {

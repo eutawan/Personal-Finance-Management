@@ -1,6 +1,8 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageAutenticacao;
 
-public class Profissional extends Pessoa{
+import br.com.cz.Model.PackageAutenticacao.Pessoa;
+
+public class Profissional extends Pessoa {
     private String profissao;
     public Profissional(String nome, int idade, String profissao) {
         super(nome, idade);

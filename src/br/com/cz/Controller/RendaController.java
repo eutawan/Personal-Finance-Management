@@ -2,12 +2,10 @@ package br.com.cz.Controller;
 
 import br.com.cz.Dao.RendaDAO;
 import br.com.cz.Exception.IdNotFoundException;
-import br.com.cz.Exception.IdadeInvalidaException;
 import br.com.cz.Exception.RendaException;
 import br.com.cz.Interface.IDao;
 import br.com.cz.Interface.IRendaController;
-import br.com.cz.Model.Despesa;
-import br.com.cz.Model.Renda;
+import br.com.cz.Model.PackageTransacao.Renda;
 
 import java.util.ArrayList;
 import java.util.List;

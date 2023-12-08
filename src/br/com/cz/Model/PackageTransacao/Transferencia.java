@@ -1,8 +1,10 @@
-package br.com.cz.Model;
+package br.com.cz.Model.PackageTransacao;
+
+import br.com.cz.Model.PackageTransacao.TipoTransacao;
 
 import java.util.UUID;
 
-public class Transferencia extends TipoTransacao{
+public class Transferencia extends TipoTransacao {
 
     private String instituicaoDestino;
     private UUID idContaDestino;
