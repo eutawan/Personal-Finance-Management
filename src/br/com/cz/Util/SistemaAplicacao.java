@@ -51,6 +51,7 @@ public class SistemaAplicacao {
                 "1 - FAZER INVESTIMENTO\n" +
                 "2 - FAZER APORTE\n" +
                 "3 - FAZER RESGATE\n" +
+                "4 - MOSTRAR INVESTIMENTOS\n" +
                 "0 - VOLTAR\n");
         System.out.print("OPÇÃO: ");
         Scanner ler = new Scanner(System.in);

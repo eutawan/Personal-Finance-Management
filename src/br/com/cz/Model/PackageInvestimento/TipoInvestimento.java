@@ -4,15 +4,13 @@ import java.time.LocalDate;
 
 public abstract class TipoInvestimento {
     LocalDate dataDeCompra;
-    int qntInvestida;
-    double cotacao;
+    double valorInvestimento;
     String ativo;
     String instituicaoFinanceira;
 
     public TipoInvestimento(LocalDate dataDeCompra, int qntInvestida, double cotacao, String ativo,
                             String instituicaoFinanceira){
-        this.qntInvestida = qntInvestida;
-        this.cotacao = cotacao;
+        this.valorInvestimento = qntInvestida * cotacao;
         this.ativo = ativo;
         this.instituicaoFinanceira = instituicaoFinanceira;
     }
@@ -25,22 +23,13 @@ public abstract class TipoInvestimento {
         this.dataDeCompra = dataDeCompra;
     }
 
-    public int getQntInvestida() {
-        return qntInvestida;
+    public double getValorInvestimento() {
+        return valorInvestimento;
     }
 
-    public void setQntInvestida(int qntInvestida) {
-        this.qntInvestida = qntInvestida;
+    public void setValorInvestimento(double valorInvestimento) {
+        this.valorInvestimento = valorInvestimento;
     }
-
-    public double getCotacao() {
-        return cotacao;
-    }
-
-    public void setCotacao(double cotacao) {
-        this.cotacao = cotacao;
-    }
-
     public String getAtivo() {
         return ativo;
     }
