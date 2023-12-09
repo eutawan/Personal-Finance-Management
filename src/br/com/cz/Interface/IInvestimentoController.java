@@ -3,6 +3,7 @@ import br.com.cz.Model.PackageInvestimento.Investimento;
 import br.com.cz.Model.PackageInvestimento.TipoInvestimento;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IInvestimentoController {
     boolean adicionarInvestimento(Investimento<? extends TipoInvestimento> utl);
@@ -11,6 +12,6 @@ public interface IInvestimentoController {
     Investimento<? extends TipoInvestimento> buscarInvestimento(String idInvest);
     boolean atualizarInvestimento(String idInvest, Investimento<? extends TipoInvestimento> investNew);
 
-    List<Investimento<? extends TipoInvestimento>> listarInvestimentos(String idUtilizador);
+    List<Investimento<? extends TipoInvestimento>> listarInvestimentos(UUID idUtilizador);
 
 }

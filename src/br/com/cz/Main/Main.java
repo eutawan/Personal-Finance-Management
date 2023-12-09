@@ -736,7 +736,13 @@ public class Main {
                                         Investimento<Stocks> investimento = new Investimento<Stocks>(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(),
                                                 contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), stocks);
 
-                                        investimentoController.adicionarInvestimento(investimento);
+                                        boolean investAdd = investimentoController.adicionarInvestimento(investimento);
+
+                                        if (investAdd) {
+                                            contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta() - (cotacao * qntInvestida));
+                                        } else{
+                                            System.out.println("=-=- INVESTIMENTO NÃO ADICIONADO -=-=");
+                                        }
                                     }
                                     else if (op.equals("2")){
                                         System.out.print("Digite o dia da compra: ");
@@ -766,7 +772,13 @@ public class Main {
                                         Investimento<Stocks> investimento = new Investimento<Stocks>(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(),
                                                 contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), stocks);
 
-                                        investimentoController.adicionarInvestimento(investimento);
+                                        boolean investAdd = investimentoController.adicionarInvestimento(investimento);
+
+                                        if (investAdd) {
+                                            contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta() - (cotacao * qntInvestida));
+                                        } else{
+                                            System.out.println("=-=- INVESTIMENTO NÃO ADICIONADO -=-=");
+                                        }
                                     }
                                     else {
                                         throw new OptionException();
@@ -791,8 +803,35 @@ public class Main {
                                     investBuscando.getInvestimento().setValorInvestimento(investBuscando.getInvestimento().getValorInvestimento() + (cotacao * qntInvestida));
 
                                 } else if (op.equals("3")) {
+                                    System.out.println("=-=- FAZER RESGATE -=-=");
+                                    System.out.print("Digite o id do investimento: ");
+                                    String idInvestimento = ler.nextLine();
+
+                                    Investimento<? extends TipoInvestimento> investBuscado = investimentoController.buscarInvestimento(idInvestimento);
+                                    boolean investRemover = investimentoController.excluirInvestimento(investBuscado);
+
+                                    if (investRemover) {
+                                        String nomeInstituicao = investBuscado.getInvestimento().getInstituicaoFinanceira();
+                                        double valorInvestimento = investBuscado.getInvestimento().getValorInvestimento();
+
+                                        contaBancariaController.buscarConta(nomeInstituicao).setSaldoConta(valorInvestimento + contaBancariaController.buscarConta(nomeInstituicao).getSaldoConta());
+                                    } else {
+                                        System.out.println("=-=- NÃO FOI POSSÍVEL FAZER O RESGATE -=-=");
+                                    }
 
                                 } else if (op.equals("4")) {
+                                    UUID idUtilizador = autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador();
+                                    List<Investimento<? extends TipoInvestimento>> listInvestUtl = investimentoController.listarInvestimentos(idUtilizador);
+
+                                    for (Investimento<? extends TipoInvestimento> invest : listInvestUtl) {
+                                        System.out.println(
+                                                "Investimento: " + invest.getIdInvestimento() + "\n" +
+                                                "Ativo: " + invest.getInvestimento().getAtivo() + "\n" +
+                                                "Instituição Financeira: " + invest.getInvestimento().getInstituicaoFinanceira() + "\n" +
+                                                "Valor: " + invest.getInvestimento().getValorInvestimento() + "\n" +
+                                                "Data do Primeiro Registro: " + invest.getInvestimento().getDataDeCompra().getDayOfMonth() + "/" + invest.getInvestimento().getDataDeCompra().getMonth() + "/" + invest.getInvestimento().getDataDeCompra().getYear()
+                                        );
+                                    }
 
                                 } else if (op.equals("0")) {
                                     System.out.println("-=-= VOLTAR =-=-");

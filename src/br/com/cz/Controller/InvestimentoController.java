@@ -13,6 +13,7 @@ import br.com.cz.Model.PackageInvestimento.TipoInvestimento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class InvestimentoController implements IInvestimentoController {
     private IDao<Investimento<? extends TipoInvestimento>> dao;
@@ -107,7 +108,7 @@ public class InvestimentoController implements IInvestimentoController {
     }
 
     @Override
-    public List<Investimento<? extends TipoInvestimento>> listarInvestimentos(String idUtilizador) {
+    public List<Investimento<? extends TipoInvestimento>> listarInvestimentos(UUID idUtilizador) {
         try {
             if (idUtilizador != null) {
                 List<Investimento<? extends TipoInvestimento>> listInvest = this.dao.listar();
