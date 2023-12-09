@@ -9,10 +9,14 @@ import br.com.cz.Model.PackageAutenticacao.Pessoa;
 import br.com.cz.Model.PackageAutenticacao.Pessoal;
 import br.com.cz.Model.PackageAutenticacao.Profissional;
 import br.com.cz.Model.PackageAutenticacao.Utilizador;
+import br.com.cz.Model.PackageInvestimento.Investimento;
+import br.com.cz.Model.PackageInvestimento.Stocks;
 import br.com.cz.Model.PackageTransacao.Despesa;
 import br.com.cz.Model.PackageTransacao.Renda;
 import br.com.cz.Model.PackageTransacao.Transferencia;
 import br.com.cz.Util.SistemaAplicacao;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +29,7 @@ public class Main {
         DespesaController despesaController = new DespesaController();
         RendaController rendaController = new RendaController();
         TransferController transferController = new TransferController();
+        InvestimentoController investimentoController = new InvestimentoController();
 
         SistemaAplicacao sistema = new SistemaAplicacao();
 
@@ -694,6 +699,73 @@ public class Main {
                             while (true) {
                                 op = sistema.menuInvestimento();
                                 if (op.equals("1")) {
+                                    System.out.println("=-=- OPÇÕES DE INVESTIMENTO -=-=");
+                                    System.out.print("\n1 - AÇÃO\n" +
+                                            "2 - CRIPTOMOEDA\n");
+
+                                    System.out.print("Digite a opção desejada: ");
+                                    op = ler.nextLine();
+
+                                    if (op.equals("1")){
+                                        System.out.println("Digite o dia da compra: ");
+                                        int diaCompra = ler.nextInt();
+
+                                        System.out.println("Digite o mês da compra: ");
+                                        int mesCompra = ler.nextInt();
+
+                                        System.out.println("Digite o ano da compra: ");
+                                        int anoCompra = ler.nextInt();
+
+                                        System.out.println("Digite a quantidade investida: ");
+                                        int qntInvestida = ler.nextInt();
+
+                                        System.out.println("Digite a cotação: ");
+                                        double cotacao = ler.nextDouble();
+
+                                        System.out.println("Digite o nome do ativo: ");
+                                        String nomeAtivo = ler.nextLine();
+
+                                        System.out.println("Digite a instituição financeira: ");
+                                        String nomeInstituicao = ler.nextLine();
+
+                                        Stocks stocks = new Stocks(LocalDate.of(anoCompra, mesCompra, diaCompra), qntInvestida, cotacao, nomeAtivo, nomeInstituicao);
+                                        Investimento<Stocks> investimento = new Investimento<Stocks>(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(),
+                                                contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), stocks);
+
+                                        investimentoController.adicionarInvestimento(investimento);
+                                    }
+                                    else if (op.equals("2")){
+                                        System.out.println("Digite o dia da compra: ");
+                                        int diaCompra = ler.nextInt();
+
+                                        System.out.println("Digite o mês da compra: ");
+                                        int mesCompra = ler.nextInt();
+
+                                        System.out.println("Digite o ano da compra: ");
+                                        int anoCompra = ler.nextInt();
+
+                                        System.out.println("Digite a quantidade investida: ");
+                                        int qntInvestida = ler.nextInt();
+
+                                        System.out.println("Digite a cotação: ");
+                                        double cotacao = ler.nextDouble();
+
+                                        System.out.println("Digite o nome do ativo: ");
+                                        String nomeAtivo = ler.nextLine();
+
+                                        System.out.println("Digite a instituição financeira: ");
+                                        String nomeInstituicao = ler.nextLine();
+
+                                        Stocks stocks = new Stocks(LocalDate.of(anoCompra, mesCompra, diaCompra), qntInvestida, cotacao, nomeAtivo, nomeInstituicao);
+                                        Investimento<Stocks> investimento = new Investimento<Stocks>(autenticacaoController.buscarUtilizador(nomeUsuario).getIdUtilizador(),
+                                                contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), stocks);
+
+                                        investimentoController.adicionarInvestimento(investimento);
+                                    }
+                                    else {
+                                        throw new OptionException();
+                                    }
+
 
                                 } else if (op.equals("2")) {
 
