@@ -38,6 +38,7 @@ public class RendaDAO implements IDao<Renda> {
             for (int i = 0; i < rendas.size(); i++) {
                 if (rendas.get(i).getIdTransacao().equals(identificador)) {
                     rendas.set(i, rendaNova);
+                    return true;
                 }
             }
         } catch (Exception e) {

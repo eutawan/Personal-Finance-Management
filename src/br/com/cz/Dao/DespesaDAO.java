@@ -37,6 +37,7 @@ public class DespesaDAO implements IDao<Despesa> {
             for (int i = 0; i < despesas.size(); i++) {
                 if (despesas.get(i).getIdTransacao().equals(identificador)){
                     despesas.set(i, despesaNova);
+                    return true;
                 }
             }
         } catch (Exception e) {

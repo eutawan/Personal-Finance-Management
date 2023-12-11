@@ -39,6 +39,7 @@ public class TransferDAO implements IDao<Transferencia> {
             for (int i = 0; i < transferencias.size(); i++) {
                 if (transferencias.get(i).getIdTransacao().equals(identificador)) {
                     transferencias.set(i, transferNova);
+                    return true;
                 }
             }
         } catch (Exception e) {

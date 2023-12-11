@@ -50,6 +50,8 @@ public class ContaBancariaController implements IContaBancariaController {
         try {
             if (contaBancaria != null){
                 return this.dao.remover(contaBancaria);
+            } else {
+                throw new ContaBancariaException();
             }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());
@@ -75,8 +77,13 @@ public class ContaBancariaController implements IContaBancariaController {
         try {
             if (nomeInstituicao != null){
                 ContaBancaria cntBuscado = this.dao.buscar(nomeInstituicao);
-                return cntBuscado;
-
+                if (cntBuscado != null) {
+                    return cntBuscado;
+                } else {
+                    throw new ContaBancariaException();
+                }
+            } else {
+                throw new ContaBancariaException();
             }
         } catch (ContaBancariaException e) {
             System.err.println(e.getMessage());

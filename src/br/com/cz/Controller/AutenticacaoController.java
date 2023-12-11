@@ -28,10 +28,8 @@ public class AutenticacaoController implements IAutenticacaoController {
             } else {
                 throw new UtilizadorException();
             }
-        } catch (IdadeInvalidaException e) {
+        } catch (IdadeInvalidaException | UtilizadorException e) {
             System.err.println(e.getMessage());
-        } catch (UtilizadorException e) {
-            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -65,10 +63,8 @@ public class AutenticacaoController implements IAutenticacaoController {
             } else {
                 throw new UtilizadorException();
             }
-        } catch (UtilizadorException e) {
+        } catch (UtilizadorException | SenhaIncorretaException e) {
             System.err.println(e.getMessage());
-        } catch (SenhaIncorretaException e) {
-            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -103,10 +99,8 @@ public class AutenticacaoController implements IAutenticacaoController {
             } else {
                 throw new UtilizadorException();
             }
-        } catch (UtilizadorException e) {
+        } catch (UtilizadorException | SenhaIncorretaException e) {
             System.err.println(e.getMessage());
-        } catch (SenhaIncorretaException e) {
-            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -126,10 +120,8 @@ public class AutenticacaoController implements IAutenticacaoController {
             } else {
                 throw new UtilizadorException();
             }
-        } catch (UtilizadorException e) {
+        } catch (UtilizadorException | SenhaIncorretaException e) {
             System.err.println(e.getMessage());
-        } catch (SenhaIncorretaException e) {
-            System.out.println(e.getMessage());
         }
         return false;
     }

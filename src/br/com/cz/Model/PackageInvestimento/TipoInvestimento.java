@@ -13,6 +13,7 @@ public abstract class TipoInvestimento {
         this.valorInvestimento = qntInvestida * cotacao;
         this.ativo = ativo;
         this.instituicaoFinanceira = instituicaoFinanceira;
+        this.dataDeCompra = dataDeCompra;
     }
 
     public LocalDate getDataDeCompra() {

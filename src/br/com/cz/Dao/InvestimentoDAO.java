@@ -18,7 +18,7 @@ public class InvestimentoDAO implements IDao<Investimento<? extends TipoInvestim
     public boolean adicionar(Investimento<? extends TipoInvestimento> objeto) {
         try {
             this.investimentos.add(objeto);
-            
+            return true;
         }catch (InvestimentoException e){
             System.err.println(e.getMessage());
         }
@@ -29,6 +29,7 @@ public class InvestimentoDAO implements IDao<Investimento<? extends TipoInvestim
     public boolean remover(Investimento<? extends TipoInvestimento> objeto) {
         try {
             this.investimentos.remove(objeto);
+            return true;
         }catch (InvestimentoException e){
             System.err.println(e.getMessage());
         }
@@ -41,6 +42,7 @@ public class InvestimentoDAO implements IDao<Investimento<? extends TipoInvestim
             for (int i = 0; i < investimentos.size(); i++) {
                 if (investimentos.get(i).getIdInvestimento().equals(identificador)){
                     investimentos.set(i, objeto);
+                    return true;
                 }
             }
         }catch (InvestimentoException e){
