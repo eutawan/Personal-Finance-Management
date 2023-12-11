@@ -43,7 +43,7 @@ public class Main {
                 System.out.print("\n1 - Pessoal\n" +
                         "2 - Profissional\n");
 
-                System.out.print("Selecione uma opcao de Cadastro: ");
+                System.out.print("Selecione uma opção de Cadastro: ");
                 int op2 = ler.nextInt();
                 ler.nextLine();
 
@@ -920,9 +920,9 @@ public class Main {
                 boolean excluir = autenticacaoController.excluirUtilizador(nomeUsuario, senha);
 
                 if (excluir) {
-                    System.out.println("=-=- CONTA EXCLUIDA -=-=");
+                    System.out.println("=-=- CONTA EXCLUÍDA -=-=");
                 } else {
-                    System.out.println("=-=- FALHA NA EXCLUSAO -=-=");
+                    System.out.println("=-=- FALHA NA EXCLUSÃO -=-=");
                 }
 
             }
@@ -937,14 +937,14 @@ public class Main {
                 System.out.print("\n1 - Pessoal\n" +
                         "2 - Profissional\n");
 
-                System.out.print("Selecione uma opcao de Cadastro: ");
+                System.out.print("Selecione uma opção de cadastro: ");
                 int op2 = ler.nextInt();
                 ler.nextLine();
 
                 if (op2 == 1) {
                     System.out.print("Digite seu novo nome: ");
                     String nome = ler.nextLine();
-                    System.out.print("Digite sua nova idade: ");
+                    System.out.print("Digite a idade que deseja: ");
                     int idade = ler.nextInt();
                     ler.nextLine();
 
@@ -962,9 +962,9 @@ public class Main {
                     boolean atualizacao = autenticacaoController.atualizarUtilizador(nomeUsuarioAtual, senhaAtual, utilizadorNovo);
 
                     if (atualizacao) {
-                        System.out.println("=-=- ATUALIZACAO REALIZADA COM SUCESSO -=-=");
+                        System.out.println("=-=- ATUALIZAÇÃO REALIZADA COM SUCESSO -=-=");
                     } else {
-                        System.out.println("=-=- ATUALIZACAO NÃO REALIZADA -=-=");
+                        System.out.println("=-=- ATUALIZAÇÃO NÃO REALIZADA -=-=");
                         ;
                     }
 
@@ -974,7 +974,7 @@ public class Main {
                     System.out.print("Digite sua nova idade: ");
                     int idade = ler.nextInt();
                     ler.nextLine();
-                    System.out.print("Digite sua nova Profissao: ");
+                    System.out.print("Digite sua nova profissão: ");
                     String profissao = ler.nextLine();
 
                     Profissional contaProfissional = new Profissional(nome, idade, profissao);

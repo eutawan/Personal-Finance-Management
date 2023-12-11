@@ -10,7 +10,7 @@ public class SistemaAplicacao {
     }
 
     public String menuInicial(){
-        System.out.print("\n-=-= GERENCIAMENTO FINANÇAS PESSOAIS =-=-\n" +
+        System.out.print("\n =-=- GERENCIAMENTO FINANÇAS PESSOAIS -=-=\n" +
                 "1 - CRIAR CONTA\n" +
                 "2 - FAZER LOGIN\n" +
                 "3 - REMOVER CONTA\n" +
@@ -20,7 +20,6 @@ public class SistemaAplicacao {
         Scanner ler = new Scanner(System.in);
         String op = ler.nextLine();
         return op;
-
     }
 
     public String menuPrincipal() {
