@@ -94,9 +94,10 @@ public class RendaController implements IRendaController {
         try {
             List<Renda> rendas = this.dao.listar();
             List<Renda> rendasUtlEsp = new ArrayList<>();
-            if (idUtilizador != null && idDaConta != null) {
-                for (Renda rnd: rendas) {
-                    if (rnd.getIdUtilizador().equals(idUtilizador) && rnd.getIdConta().equals(idDaConta)) {
+
+            if (idDaConta != null && idUtilizador != null) {
+                for (Renda rnd : rendas) {
+                    if (rnd.getIdConta().equals(idDaConta) && rnd.getIdUtilizador().equals(idUtilizador)) {
                         rendasUtlEsp.add(rnd);
                     }
                 }

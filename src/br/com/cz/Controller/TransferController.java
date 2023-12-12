@@ -75,12 +75,11 @@ public class TransferController implements ITransferController {
 
             if (idDaConta != null && idUtilizador != null) {
                 for (Transferencia trn : transfers) {
-                    if (trn.getIdUtilizador().equals(idUtilizador)) {
+                    if (trn.getIdConta().equals(idDaConta) && trn.getIdUtilizador().equals(idUtilizador)) {
                         transfersUtlEsp.add(trn);
                     }
                 }
                 return transfersUtlEsp;
-
             } else {
                 throw new IdNotFoundException();
             }

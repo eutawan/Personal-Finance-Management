@@ -346,11 +346,13 @@ public class Main {
                                             } else {
                                                 System.out.print("Digite o nome da insituição: ");
                                                 String nomeInstituicao = ler.nextLine();
-                                                List<Despesa> listDespesas = despesaController.buscarDespesas(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(), utlDespesa.getIdUtilizador());
+                                                UUID idConta = contaBancariaController.buscarConta(nomeInstituicao).getIdConta();
+                                                UUID idUtl = utlDespesa.getIdUtilizador();
+                                                List<Despesa> listDespesas = despesaController.buscarDespesas( idConta, idUtl);
 
                                                 for (Despesa dsp : listDespesas) {
                                                     if (dsp.getIdUtilizador().equals(utlDespesa.getIdUtilizador())) {
-                                                        System.out.println("\nDESPESA CONTA: " + dsp.getIdConta() +
+                                                        System.out.println("\nDESPESA CONTA: " + dsp.getIdConta() +  "\n" +
                                                                 "Id da Transação: "+ dsp.getIdTransacao() + "\n" +
                                                                 "Instituição: " + dsp.getInstituicao() + "\n" +
                                                                 "Valor" + dsp.getValor() + "\n" +
@@ -505,21 +507,20 @@ public class Main {
                                                     }
                                                 }
                                             } else {
-                                                System.out.print("Digite o nome da insituição: ");
-                                                String nomeInstituicao = ler.nextLine();
-                                                List<Renda> listRendas = rendaController.buscarRenda(contaBancariaController.buscarConta(nomeInstituicao).getIdConta(),
-                                                        utlRenda.getIdUtilizador());
+                                                System.out.println("Digite o nome da insituição: ");
+                                                String instituicao = ler.nextLine();
+                                                UUID idConta = contaBancariaController.buscarConta(instituicao).getIdConta();
+                                                UUID idUtl = utlRenda.getIdUtilizador();
+                                                List<Renda> listRendas = rendaController.buscarRenda(idConta, idUtl);
 
-                                                for (Renda rnd : listRendas) {
-                                                    if (rnd.getIdUtilizador().equals(utlRenda.getIdUtilizador())) {
-                                                        System.out.println("\nRENDA CONTA: " + rnd.getIdConta() +
-                                                                "Id da Transação: "+ rnd.getIdTransacao() + "\n" +
-                                                                "Instituição: " + rnd.getInstituicao() + "\n" +
-                                                                "Valor: " + rnd.getValor() + "\n" +
-                                                                "Método de Pagamento: " + rnd.getMetodoDePagamento() + "\n" +
-                                                                "Foi pago? " + rnd.isFoiRecebido() + "\n"
-                                                        );
-                                                    }
+                                                for (Renda rendas : listRendas) {
+                                                    System.out.println("\nRENDA CONTA: " + rendas.getIdConta() + "\n" +
+                                                            "Id da Transação: " + rendas.getIdTransacao() + "\n" +
+                                                            "Instituição: " + rendas.getInstituicao() + "\n" +
+                                                            "Valor: " + rendas.getValor() + "\n" +
+                                                            "Método de Pagamento: " + rendas.getMetodoDePagamento() + "\n" +
+                                                            "Foi pago? " + rendas.isFoiRecebido() + "\n"
+                                                    );
                                                 }
                                             }
                                         }
@@ -688,7 +689,7 @@ public class Main {
                                                 for (Transferencia trn : transferenciaList){
                                                     if (trn.getIdUtilizador().equals(utlTransf.getIdUtilizador())){
 
-                                                        System.out.println("\nDESPESA " + trn.getIdTransacao() + "\n" +
+                                                        System.out.println("\nTRANSFERENCIA " + trn.getIdTransacao() + "\n" +
                                                                 "Instituição: " + trn.getInstituicao() + "\n" +
                                                                 "Instituição de destino: " + trn.getInstituicaoDestino() + "\n" +
                                                                 "Valor: " + trn.getValor() + "\n" +
@@ -699,19 +700,18 @@ public class Main {
                                             } else {
                                                 System.out.println("Digite o nome da instituição: ");
                                                 String instituicao = ler.nextLine();
-                                                List<Transferencia> listTransferencia = transferController.buscarTransfer(contaBancariaController.buscarConta(instituicao).getIdConta(),
-                                                        utlTransf.getIdUtilizador());
+                                                UUID idConta = contaBancariaController.buscarConta(instituicao).getIdConta();
+                                                UUID idUtl = utlTransf.getIdUtilizador();
+                                                List<Transferencia> listTransferencia = transferController.buscarTransfer( idConta, idUtl);
                                                 for (Transferencia transferencia : listTransferencia){
-                                                    if (transferencia.getIdUtilizador().equals(utlTransf.getIdUtilizador())){
-                                                        System.out.println("\nDESPESA CONTA: " + transferencia.getIdConta() +
-                                                                "Id da Transação: "+ transferencia.getIdTransacao() + "\n" +
-                                                                "Instituição: " + transferencia.getInstituicao() + "\n" +
-                                                                "Instituição de destino: " + transferencia.getInstituicaoDestino() + "\n" +
-                                                                "Valor" + transferencia.getValor() + "\n" +
-                                                                "Método de Pagamento" + "\n"
+                                                    System.out.println("\nTRANSFERENCIA CONTA: " + transferencia.getIdConta() + "\n" +
+                                                            "Id da Transação: "+ transferencia.getIdTransacao() + "\n" +
+                                                            "Instituição: " + transferencia.getInstituicao() + "\n" +
+                                                            "Instituição de destino: " + transferencia.getInstituicaoDestino() + "\n" +
+                                                            "Valor: " + transferencia.getValor() + "\n" +
+                                                            "Método de Pagamento: " + transferencia.getValor() + "\n"
 
-                                                        );
-                                                    }
+                                                    );
                                                 }
                                             }
 

@@ -62,12 +62,12 @@ public class RendaDAO implements IDao<Renda> {
     }
 
     @Override
-    public List<Renda> listar() {try {
-        return rendas;
-    } catch (Exception e) {
-        System.err.println(e.getMessage());
-    }
-
+    public List<Renda> listar() {
+        try {
+            return rendas;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         return null;
     }
 }

@@ -79,9 +79,9 @@ public class DespesaController implements IDespesaController {
             List<Despesa> despesas = this.dao.listar();
             List<Despesa> despesasUtlEsp = new ArrayList<>();
 
-            if (idUtilizador != null && idDaConta != null) {
+            if (idDaConta != null && idUtilizador != null) {
                 for (Despesa dsp : despesas) {
-                    if (dsp.getIdUtilizador().equals(idUtilizador) && dsp.getIdConta().equals(idDaConta)) {
+                    if (dsp.getIdConta().equals(idDaConta) && dsp.getIdUtilizador().equals(idUtilizador)) {
                         despesasUtlEsp.add(dsp);
                     }
                 }
@@ -89,7 +89,7 @@ public class DespesaController implements IDespesaController {
             } else {
                 throw new IdNotFoundException();
             }
-        } catch (IdadeInvalidaException e) {
+        } catch (IdNotFoundException e) {
             System.err.println(e.getMessage());
         }
         return null;
